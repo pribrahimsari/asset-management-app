@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\V1\AssetConroller;
+use App\Http\Controllers\Api\V1\AssetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,5 +19,5 @@ use App\Http\Controllers\Api\V1\AssetConroller;
 //});
 
 Route::prefix("v1")->group(function (){
-    Route::apiResource("/assets", AssetConroller::class);
+    Route::apiResource("/assets", AssetController::class);
 });

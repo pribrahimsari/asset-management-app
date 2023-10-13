@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Asset;
 use Illuminate\Http\Request;
 
-class AssetConroller extends Controller
+class AssetController extends Controller
 {
     /**
      * Display a listing of the resource.
