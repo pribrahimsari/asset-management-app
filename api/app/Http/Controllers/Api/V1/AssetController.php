@@ -15,8 +15,8 @@ class AssetController extends Controller
      */
     public function index()
     {
-        // todo: pagination
-        return AssetResource::collection(Asset::all());
+        // todo: improve the pagination: should support sortBy
+        return AssetResource::collection(Asset::paginate(20));
     }
 
     /**
