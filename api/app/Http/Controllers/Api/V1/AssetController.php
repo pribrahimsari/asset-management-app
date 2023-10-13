@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Models\Asset;
 use Illuminate\Http\Request;
+use App\Http\Resources\AssetResource;
 
 class AssetController extends Controller
 {
@@ -14,8 +15,7 @@ class AssetController extends Controller
     public function index()
     {
         // todo: pagination
-        // todo: refactor forEloquent API Resource
-        return Asset::all();
+        return AssetResource::collection(Asset::all());
     }
 
     /**
