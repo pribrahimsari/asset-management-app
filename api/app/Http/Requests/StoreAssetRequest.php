@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreAssetRequest extends FormRequest
 {
@@ -23,7 +24,14 @@ class StoreAssetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "name"=>"required|string|max:255",
+            "description"=>"nullable|string|max:1000",
+            "type_id"=>"required|exists:App\Models\Type,id",
+            "addition_time"=>"nullable|date",
+            'priority' => [
+                'required',
+                Rule::in(["Low", "Medium", "High"]),
+            ],
         ];
     }
 }

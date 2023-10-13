@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Asset;
 use Illuminate\Http\Request;
 use App\Http\Resources\AssetResource;
+use App\Http\Requests\StoreAssetRequest;
 
 class AssetController extends Controller
 {
@@ -21,9 +22,11 @@ class AssetController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreAssetRequest $request)
     {
         //
+        $asset = Asset::create($request->validated());
+        return AssetResource::make($asset);
     }
 
     /**
