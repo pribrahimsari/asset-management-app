@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
         // Seed types lookup table for initial asset types:
         $this->call([
             TypeSeeder::class,
+            AssetSeeder::class,
         ]);
     }
 }
