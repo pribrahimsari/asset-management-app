@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Asset;
-use Illuminate\Http\Request;
 use App\Http\Resources\AssetResource;
 use App\Http\Requests\StoreAssetRequest;
+use App\Http\Requests\UpdateAssetRequest;
 
 class AssetController extends Controller
 {
@@ -41,9 +41,10 @@ class AssetController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Asset $asset)
+    public function update(UpdateAssetRequest $request, Asset $asset)
     {
-        //
+        $asset->update($request->validated());
+        return AssetResource::make($asset);
     }
 
     /**
