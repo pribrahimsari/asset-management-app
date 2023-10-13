@@ -1,0 +1,102 @@
+# https://stackoverflow.com/questions/70996923/is-that-possible-to-deploy-laravel-web-application-to-shared-hosting-using-githu
+
+# DO NOT FORGET:
+#  on DreamHost:
+#   Web directory MUST END WITH /public for LARAVEL
+#    EXAMPLE: site-name/public
+
+name: 🚀 Deploy Backend on push main branch and on api/** folder change
+
+on:
+  push:
+    branches:
+      - main
+#    paths:
+#      - 'api/**'
+
+jobs:
+  deploy:
+    name: 🎉 Deploy Backend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: 📂 Transfer files via SFTP
+        uses: pressidium/lftp-mirror-action@v1
+        with:
+          # SFTP credentials
+          host: ${{ secrets.API_SFTP_HOST }}
+          port: ${{ secrets.API_SFTP_PORT }}
+          user: ${{ secrets.API_SFTP_USERNAME }}
+          pass: ${{ secrets.API_SFTP_PASSWORD }}
+          # lftp settings
+          onlyNewer: true
+          settings: 'sftp:auto-confirm=yes'
+          # Mirror command options
+          localDir: './api'
+          remoteDir: './api.asset-management'
+          reverse: true
+          ignoreFile: '.lftp_ignore'
+          options: '--verbose'
+
+      - name: 💻 Post Deploy | Composer Install + PHP artisan commands
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.API_SFTP_HOST }}
+          username: ${{ secrets.API_SFTP_USERNAME }}
+          password: ${{ secrets.API_SFTP_PASSWORD }}
+          port: ${{ secrets.API_SFTP_PORT }}
+          script: |
+            echo "Deployment started ..."
+            
+            export PATH=/usr/local/php82/bin:$PATH
+            export PATH=/home/mintus_asset_adm/.php/composer:$PATH
+            echo "PHP and Composer paths exported"
+
+            echo "which composer:"
+            which composer
+            composer --version
+
+            echo "--------"
+
+            echo "which php:"
+            which php
+            php -v
+
+            echo "--------"
+
+            set -e
+            cd api.asset-management
+
+            #### Enter maintenance mode or return true
+            #### if already is in maintenance mode
+            (php artisan down) || true
+
+            #### Install composer dependencies
+            composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+
+            #### Clear the old cache
+            php artisan clear-compiled
+
+            #### Recreate cache
+            php artisan optimize
+
+            #### Run database migrations
+            ### php artisan migrate --force --seed
+
+            #### php artisan storage:link
+
+            php artisan config:clear
+            php artisan config:cache
+
+            php artisan view:clear
+            php artisan route:cache
+
+            #### Exit maintenance mode
+            php artisan up
+
+            echo "Deployment finished!"
