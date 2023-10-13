@@ -11,6 +11,6 @@ class Asset extends Model
 
     // one-to-one relation between
     public function type() {
-        return $this->belongsTo('Type', "id");
+        return $this->belongsTo(Type::class);
     }
 }
