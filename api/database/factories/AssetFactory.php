@@ -18,7 +18,8 @@ class AssetFactory extends Factory
     public function definition(): array
     {
         return [
-            "name" => fake()->name(),
+            // better asset names: random 1-4 words + Uppercase the first character of each word
+            "name" => ucwords(fake()->words(rand(1,4), true)),
             "description" => fake()->sentence(),
             "type_id" => Type::all()->random()->id, // get a random id from Type Eloquent
             "addition_time" => fake()->dateTimeThisMonth(),
