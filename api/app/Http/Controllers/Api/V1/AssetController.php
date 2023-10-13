@@ -32,6 +32,7 @@ class AssetController extends Controller
     public function show(Asset $asset)
     {
         //
+        return AssetResource::make($asset);
     }
 
     /**
