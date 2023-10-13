@@ -11,8 +11,8 @@ on:
   push:
     branches:
       - main
-#    paths:
-#      - 'api/**'
+    paths:
+      - 'api/**'
 
 jobs:
   deploy:
