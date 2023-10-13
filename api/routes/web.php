@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Redirect;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+// SECURITY: disable all web routes
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
+// we'll use this Laravel app for only "api" routes
+// Frontent will be served under different URL
+// redirect browser access for api URL to FE-web-client URL
+Route::fallback(function () {
+    return Redirect::away(env('APP_URL', "https://isari.me"));
 });
