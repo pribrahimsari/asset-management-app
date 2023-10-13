@@ -52,6 +52,7 @@ class AssetController extends Controller
      */
     public function destroy(Asset $asset)
     {
-        //
+        $asset->delete();
+        return response()->noContent();
     }
 }
