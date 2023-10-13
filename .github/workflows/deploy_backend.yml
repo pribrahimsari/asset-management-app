@@ -86,7 +86,7 @@ jobs:
             php artisan optimize
 
             #### Run database migrations
-            ### php artisan migrate --force --seed
+            #### php artisan migrate --force --seed
 
             #### php artisan storage:link
 
