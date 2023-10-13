@@ -11,7 +11,8 @@ class StoreAssetRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        // since our mini app has not a authorization logic, return true for now
+        return true;
     }
 
     /**
