@@ -19,6 +19,7 @@ class AssetResource extends JsonResource
             "name"=>$this->name,
             "description"=>$this->description,
             "type_id"=>$this->type_id,
+            "type"=>TypeResource::make($this->type),
             "addition_time"=>$this->addition_time,
             "priority"=>$this->priority,
         ];
