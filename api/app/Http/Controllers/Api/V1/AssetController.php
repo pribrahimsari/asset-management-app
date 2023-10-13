@@ -13,7 +13,9 @@ class AssetConroller extends Controller
      */
     public function index()
     {
-        //
+        // todo: pagination
+        // todo: refactor forEloquent API Resource
+        return Asset::all();
     }
 
     /**
