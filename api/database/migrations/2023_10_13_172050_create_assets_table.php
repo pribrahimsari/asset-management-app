@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             // customize columns
             $table->string("name");
-            $table->text("description");
+            $table->text("description")->nullable();
             $table->foreignIdFor(Type::class); // creates a type_id column with Foreign Key
-            $table->dateTime("addition_time");
+            $table->dateTime("addition_time")->nullable();
             $table->enum('priority', ['Low', 'Medium', "High"]);
             // required columns
             $table->timestamps();
