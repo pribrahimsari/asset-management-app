@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Type extends Model
+class Asset extends Model
 {
     use HasFactory;
 
-    public function assets() {
-        return $this->hasMany('Asset', 'type_id');
+    // one-to-one relation between
+    public function type() {
+        return $this->belongsTo('Type', "id");
     }
 }
