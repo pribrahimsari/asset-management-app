@@ -137,6 +137,10 @@ export default function Sidebar() {
 
       <Divider />
 
+      <Box>TODO: Charts for Statistics</Box>
+
+      <Divider />
+
       {/* Bottom Avatar */}
       <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
         <Avatar variant="outlined" size="sm" src="https://avatars.githubusercontent.com/u/36038198" />
