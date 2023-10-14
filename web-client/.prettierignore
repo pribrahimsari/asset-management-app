@@ -1,0 +1,16 @@
+# Ignore artifacts:
+build
+coverage
+
+# Ignore all HTML files:
+*.html
+
+# Recommended:
+out/
+dist/
+node_modules
+public
+
+# Eslint + Prettier
+.prettierrc
+.eslintrc.cjs
