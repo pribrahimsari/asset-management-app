@@ -2,7 +2,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useMemo } from "react";
 import { getAssets } from "src/api/apiService.ts";
-import { Asset, PaginatedResponseBody } from "src/types/ApiTypes.ts";
+import { Asset, PaginatedInfiniteData } from "src/types/ApiTypes.ts";
 import BasicCreateDeleteButtons from "src/BasicCreateDeleteButtons.tsx";
 
 const App = () => {
@@ -22,7 +22,7 @@ const App = () => {
     // Why type assertion here?
     // issue on react-query v4: https://github.com/TanStack/query/issues/3065
     return (
-      (data as PaginatedResponseBody)?.pages?.reduce((acc, page) => [...acc, ...page.data], [] as Asset[]) ||
+      (data as PaginatedInfiniteData)?.pages?.reduce((acc, page) => [...acc, ...page.data], [] as Asset[]) ||
       []
     );
   }, [data]);

@@ -1,4 +1,4 @@
-export type PaginatedResponseBody = {
+export type PaginatedInfiniteData = {
   pageParams: never;
   pages: GetAssetsQueryResult[];
 };
