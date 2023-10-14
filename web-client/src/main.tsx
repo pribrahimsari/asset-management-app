@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
-// import "./index.css";
+import "./index.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // React Query can also be used with React's Suspense for Data Fetching API's with its fallbacks
