@@ -2,10 +2,11 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useMemo } from "react";
 import { getAssets } from "src/api/apiService.ts";
-import { Asset, PaginatedResponseBody } from "src/types/ApiTypes.ts";
+import { Asset, PaginatedInfiniteData } from "src/types/ApiTypes.ts";
+import BasicCreateDeleteButtons from "src/BasicCreateDeleteButtons.tsx";
 
 const App = () => {
-  const { data, hasNextPage, fetchNextPage } = useInfiniteQuery({
+  const { data, hasNextPage, fetchNextPage, isFetching } = useInfiniteQuery({
     queryKey: ["assets"],
     queryFn: getAssets,
     getNextPageParam: (lastPage) => {
@@ -13,13 +14,15 @@ const App = () => {
       const currPageNr = lastPage.meta.current_page;
       return currPageNr < lastPageNr ? currPageNr + 1 : undefined;
     },
+    // todo: check is necessary or not?
+    refetchOnWindowFocus: false,
   });
 
   const assets = useMemo(() => {
     // Why type assertion here?
     // issue on react-query v4: https://github.com/TanStack/query/issues/3065
     return (
-      (data as PaginatedResponseBody)?.pages?.reduce((acc, page) => [...acc, ...page.data], [] as Asset[]) ||
+      (data as PaginatedInfiniteData)?.pages?.reduce((acc, page) => [...acc, ...page.data], [] as Asset[]) ||
       []
     );
   }, [data]);
@@ -31,8 +34,10 @@ const App = () => {
     <main>
       <h1>Asset Management Application</h1>
 
+      <BasicCreateDeleteButtons />
+
       <InfiniteScroll
-        next={() => fetchNextPage()}
+        next={() => !isFetching && fetchNextPage()}
         hasMore={!!hasNextPage}
         loader={<div>Loading</div>}
         dataLength={assets.length || 0}
@@ -43,13 +48,17 @@ const App = () => {
             assets.map((asset) => (
               <li key={asset.id}>
                 <p>
-                  <b>{asset.name}</b>
+                  <b>
+                    #{asset.id} - {asset.name}
+                  </b>
                 </p>
                 <p>{asset.description}</p>
               </li>
             ))}
         </ul>
       </InfiniteScroll>
+
+      {!hasNextPage && <p>Nothing left to fetch (Total: {assets.length} assets)</p>}
     </main>
   );
 };
