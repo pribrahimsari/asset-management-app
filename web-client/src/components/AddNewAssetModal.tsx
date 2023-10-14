@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   DialogTitle,
   FormControl,
@@ -12,13 +13,61 @@ import {
   Stack,
   Textarea,
 } from "@mui/joy";
+import { useFormik } from "formik";
+import { useMemo } from "react";
+import { CreateAssetFormValues } from "src/types/CustomTypes.tsx";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createAsset } from "src/api/apiService.ts";
+import { createAssetFormSchema } from "src/validations/formValidations.ts";
 
 const AddNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => void }) => {
-  // name
-  // description
-  // type
-  // addition date
-  // priority
+  const queryClient = useQueryClient();
+
+  const createMutation = useMutation({
+    mutationKey: ["createAsset"],
+    mutationFn: createAsset,
+    onSuccess: () =>
+      queryClient
+        .invalidateQueries({
+          queryKey: ["assets"],
+        })
+        // todo: noti msg
+        .then(() => console.log("success create")),
+  });
+
+  /*----- Formik Variables ------*/
+  const initialValues: CreateAssetFormValues = useMemo(
+    () => ({
+      name: "",
+      description: "",
+      type_id: "",
+      priority: "",
+      addition_time: "",
+    }),
+    []
+  );
+
+  const handleSubmit = (values: CreateAssetFormValues) => {
+    createMutation.mutate({ values });
+  };
+
+  const {
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleBlur,
+    setFieldValue,
+    isValid,
+    dirty,
+    resetForm,
+    submitForm,
+  } = useFormik({
+    initialValues,
+    onSubmit: handleSubmit,
+    validationSchema: createAssetFormSchema,
+  });
+  /*----- Formik Variables ------*/
 
   return (
     <Modal open={open} onClose={() => setOpen(false)}>
@@ -29,14 +78,28 @@ const AddNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: boole
         <Stack spacing={2}>
           <FormControl>
             <FormLabel>Name *</FormLabel>
-            <Input size="sm" name="name" autoFocus required placeholder="Name for asset" error={false} />
+            <Input
+              required
+              name="name"
+              value={values.name}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.name && !!errors.name}
+              size="sm"
+              autoFocus
+              placeholder="Name for asset"
+            />
           </FormControl>
 
           <FormControl>
             <FormLabel>Description</FormLabel>
             <Textarea
-              size="sm"
               name="description"
+              value={values.description}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.description && !!errors.description}
+              size="sm"
               placeholder="Description for asset"
               minRows={2}
               maxRows={4}
@@ -46,9 +109,20 @@ const AddNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: boole
           {/* todo */}
           <FormControl>
             <FormLabel>Type *</FormLabel>
-            <Select required name="type" variant="outlined" placeholder="Asset Type" size="sm">
-              <Option value="dog">Dog</Option>
-              <Option value="cat">Cat</Option>
+            <Select
+              required
+              name="type_id"
+              value={values.type_id}
+              onChange={(_e, newValue) => setFieldValue("type_id", newValue)}
+              onBlur={handleBlur}
+              // error={touched.name && !!errors.name}
+              color={touched.type_id && !!errors.type_id ? "danger" : undefined}
+              variant="outlined"
+              placeholder="Select an asset type"
+              size="sm"
+            >
+              <Option value="1">Dog</Option>
+              <Option value="2">Cat</Option>
             </Select>
           </FormControl>
 
@@ -56,10 +130,13 @@ const AddNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: boole
           <FormControl>
             <FormLabel>Addition Date</FormLabel>
             <Input
-              name="addition_time"
               type="date"
+              name="addition_time"
+              value={values.addition_time}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.addition_time && !!errors.addition_time}
               size="sm"
-              error={false}
               slotProps={{
                 input: {
                   min: "2020-06-07T00:00",
@@ -71,14 +148,64 @@ const AddNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: boole
 
           <FormControl>
             <FormLabel>Priority *</FormLabel>
-            <Select required name="priority" placeholder="Priority" size="sm">
+            <Select
+              required
+              name="priority"
+              value={values.priority}
+              onChange={(_e, newValue) => setFieldValue("priority", newValue)}
+              onBlur={handleBlur}
+              // error={touched.name && !!errors.name}
+              color={touched.priority && !!errors.priority ? "danger" : undefined}
+              placeholder="Select priority"
+              size="sm"
+            >
               <Option value="Low">Low</Option>
               <Option value="Medium">Medium</Option>
               <Option value="High">High</Option>
             </Select>
           </FormControl>
 
-          <Button type="submit">Add</Button>
+          <Box display="flex" justifyContent="center" alignItems="center" gap={1}>
+            <Box width="33%">
+              <Button
+                fullWidth
+                variant="outlined"
+                color="warning"
+                disabled={createMutation.isLoading}
+                onClick={() => {
+                  resetForm();
+                  setOpen(false);
+                }}
+              >
+                Cancel
+              </Button>
+            </Box>
+
+            <Box width="33%">
+              <Button
+                fullWidth
+                variant="soft"
+                color="danger"
+                disabled={createMutation.isLoading}
+                onClick={() => {
+                  resetForm();
+                }}
+              >
+                Reset
+              </Button>
+            </Box>
+
+            <Box width="33%">
+              <Button
+                fullWidth
+                type="submit"
+                onClick={submitForm}
+                disabled={!(dirty && isValid) || createMutation.isLoading}
+              >
+                Add
+              </Button>
+            </Box>
+          </Box>
         </Stack>
       </ModalDialog>
     </Modal>
