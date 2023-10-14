@@ -6,7 +6,7 @@ import { Asset, PaginatedResponseBody } from "src/types/ApiTypes.ts";
 import BasicCreateDeleteButtons from "src/BasicCreateDeleteButtons.tsx";
 
 const App = () => {
-  const { data, hasNextPage, fetchNextPage } = useInfiniteQuery({
+  const { data, hasNextPage, fetchNextPage, isFetching } = useInfiniteQuery({
     queryKey: ["assets"],
     queryFn: getAssets,
     getNextPageParam: (lastPage) => {
@@ -37,7 +37,7 @@ const App = () => {
       <BasicCreateDeleteButtons />
 
       <InfiniteScroll
-        next={() => fetchNextPage()}
+        next={() => !isFetching && fetchNextPage()}
         hasMore={!!hasNextPage}
         loader={<div>Loading</div>}
         dataLength={assets.length || 0}
