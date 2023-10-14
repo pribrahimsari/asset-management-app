@@ -20,6 +20,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createAsset } from "src/api/apiService.ts";
 import { createAssetFormSchema } from "src/validations/formValidations.ts";
 import { useSnackbar } from "notistack";
+import { assetTypes } from "src/data/constants.ts";
 
 const AddNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => void }) => {
   const queryClient = useQueryClient();
@@ -126,8 +127,11 @@ const AddNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: boole
               placeholder="Select an asset type"
               size="sm"
             >
-              <Option value="1">Dog</Option>
-              <Option value="2">Cat</Option>
+              {assetTypes.map((type) => (
+                <Option key={type.id} value={type.id.toString()}>
+                  {type.name}
+                </Option>
+              ))}
             </Select>
           </FormControl>
 
