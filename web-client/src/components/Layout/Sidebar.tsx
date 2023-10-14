@@ -9,7 +9,9 @@ import Sheet from "@mui/joy/Sheet";
 import ColorSchemeToggle from "./ColorSchemeToggle";
 import { closeSidebar } from "./layoutUtils";
 import { GiLinkedRings } from "react-icons/gi";
-import { Tooltip } from "@mui/joy";
+import { Button, Card, Option, Select, Stack, Tooltip } from "@mui/joy";
+import { MdAddPhotoAlternate } from "react-icons/md";
+import { FaSortAlphaDown } from "react-icons/fa";
 
 export default function Sidebar() {
   return (
@@ -82,31 +84,55 @@ export default function Sidebar() {
 
       <Divider />
 
+      {/* Action Cards */}
       <Box
         sx={{
           minHeight: 0,
           overflow: "hidden auto",
           flexGrow: 1,
           display: "flex",
+          gap: 1,
           flexDirection: "column",
           [`& .${listItemButtonClasses.root}`]: {
             gap: 1.5,
           },
         }}
       >
-        {/*<Card invertedColors variant="soft" color="success" size="sm" sx={{ boxShadow: "none" }}>*/}
-        {/*  <Stack direction="row" justifyContent="space-between" alignItems="center">*/}
-        {/*    <Typography level="title-sm">Used space</Typography>*/}
-        {/*    <IconButton size="sm">*/}
-        {/*      <MdDarkMode />*/}
-        {/*    </IconButton>*/}
-        {/*  </Stack>*/}
-        {/*  <Typography level="body-xs">Your team has used 80% of your available space. Need more?</Typography>*/}
-        {/*  <LinearProgress variant="outlined" value={80} determinate sx={{ my: 1 }} />*/}
-        {/*  <Button size="sm" variant="solid">*/}
-        {/*    Upgrade plan*/}
-        {/*  </Button>*/}
-        {/*</Card>*/}
+        <Card invertedColors variant="soft" color="success" size="sm" sx={{ boxShadow: "none" }}>
+          <Stack direction="row" justifyContent="space-between" alignItems="center">
+            <Typography level="title-sm">Add New Asset</Typography>
+            <MdAddPhotoAlternate />
+          </Stack>
+          <Typography level="body-xs">
+            An interface that allows users to <b>add new assets</b>.
+          </Typography>
+          <Button size="sm" variant="solid" startDecorator={<MdAddPhotoAlternate />}>
+            Add
+          </Button>
+        </Card>
+
+        <Card variant="soft" color="warning" size="sm" sx={{ boxShadow: "none" }}>
+          <Stack direction="row" justifyContent="space-between" alignItems="center">
+            <Typography level="title-sm">Sort</Typography>
+            <FaSortAlphaDown />
+          </Stack>
+          <Typography level="body-xs">
+            You can sort assets listed by id, type, addition date or priority
+          </Typography>
+          <Select
+            variant="outlined"
+            color="warning"
+            placeholder="Sort By"
+            startDecorator={<FaSortAlphaDown />}
+            size="sm"
+            // sx={{ width: 240 }}
+          >
+            <Option value="dog">Dog</Option>
+            <Option value="cat">Cat</Option>
+            <Option value="fish">Fish</Option>
+            <Option value="bird">Bird</Option>
+          </Select>
+        </Card>
       </Box>
 
       <Divider />
