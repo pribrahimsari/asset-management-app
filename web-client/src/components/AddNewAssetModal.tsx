@@ -176,6 +176,7 @@ const AddNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: boole
                 variant="outlined"
                 color="warning"
                 disabled={createMutation.isLoading}
+                loading={createMutation.isLoading}
                 onClick={() => {
                   resetForm();
                   setOpen(false);
@@ -191,6 +192,7 @@ const AddNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: boole
                 variant="soft"
                 color="danger"
                 disabled={createMutation.isLoading}
+                loading={createMutation.isLoading}
                 onClick={() => {
                   resetForm();
                 }}
@@ -205,6 +207,7 @@ const AddNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: boole
                 type="submit"
                 onClick={submitForm}
                 disabled={!(dirty && isValid) || createMutation.isLoading}
+                loading={createMutation.isLoading}
               >
                 Add
               </Button>
