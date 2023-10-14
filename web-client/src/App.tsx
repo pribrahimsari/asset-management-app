@@ -4,6 +4,7 @@
 
 import { useInfiniteQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useMemo } from "react";
 
 const fetchAssets = async ({ pageParam = 1 }) => {
   const response = await fetch(`http://localhost:8000/v1/assets?page=${pageParam}`);
@@ -21,9 +22,11 @@ const App = () => {
     },
   });
 
-  console.debug({ data });
+  const assets = useMemo(() => {
+    return data?.pages.reduce((acc, page) => [...acc, ...page.data], []);
+  }, [data?.pages]);
 
-  const assets = data?.pages.reduce((acc, page) => [...acc, ...page.data], []);
+  console.debug({ data });
   console.debug({ assets });
 
   return (
