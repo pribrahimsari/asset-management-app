@@ -2,9 +2,9 @@ import { Button, Card, Stack } from "@mui/joy";
 import Typography from "@mui/joy/Typography";
 import { MdAddPhotoAlternate } from "react-icons/md";
 import { useState } from "react";
-import AddNewAssetModal from "src/components/AddNewAssetModal.tsx";
+import CreateNewAssetModal from "src/components/CreateNewAssetModal.tsx";
 
-const AddNewAssetCard = () => {
+const CreateNewAssetCard = () => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -28,9 +28,9 @@ const AddNewAssetCard = () => {
         </Button>
       </Card>
 
-      <AddNewAssetModal open={open} setOpen={setOpen} />
+      <CreateNewAssetModal open={open} setOpen={setOpen} />
     </>
   );
 };
 
-export default AddNewAssetCard;
+export default CreateNewAssetCard;

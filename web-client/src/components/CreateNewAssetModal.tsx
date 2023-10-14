@@ -22,7 +22,7 @@ import { createAssetFormSchema } from "src/validations/formValidations.ts";
 import { useSnackbar } from "notistack";
 import { assetTypes } from "src/data/constants.ts";
 
-const AddNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => void }) => {
+const CreateNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => void }) => {
   const queryClient = useQueryClient();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -224,4 +224,4 @@ const AddNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: boole
   );
 };
 
-export default AddNewAssetModal;
+export default CreateNewAssetModal;

@@ -11,7 +11,7 @@ import { closeSidebar } from "./layoutUtils";
 import { GiLinkedRings } from "react-icons/gi";
 import { Card, Option, Select, Stack, Tooltip } from "@mui/joy";
 import { FaSortAlphaDown } from "react-icons/fa";
-import AddNewAssetCard from "src/components/Layout/AddNewAssetCard.tsx";
+import CreateNewAssetCard from "src/components/CreateNewAssetCard.tsx";
 
 export default function Sidebar() {
   return (
@@ -98,7 +98,7 @@ export default function Sidebar() {
           },
         }}
       >
-        <AddNewAssetCard />
+        <CreateNewAssetCard />
 
         {/*  todo */}
         <Card variant="soft" color="warning" size="sm" sx={{ boxShadow: "none" }}>
