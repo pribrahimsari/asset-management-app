@@ -7,6 +7,9 @@
 - MySQL v8
 
 ### Frontend
+- yarn
+- vite
+- react
 - 
 
 
