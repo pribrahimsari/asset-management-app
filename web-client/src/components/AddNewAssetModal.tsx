@@ -19,9 +19,11 @@ import { CreateAssetFormValues } from "src/types/CustomTypes.tsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createAsset } from "src/api/apiService.ts";
 import { createAssetFormSchema } from "src/validations/formValidations.ts";
+import { useSnackbar } from "notistack";
 
 const AddNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => void }) => {
   const queryClient = useQueryClient();
+  const { enqueueSnackbar } = useSnackbar();
 
   const createMutation = useMutation({
     mutationKey: ["createAsset"],
@@ -31,8 +33,10 @@ const AddNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: boole
         .invalidateQueries({
           queryKey: ["assets"],
         })
-        // todo: noti msg
-        .then(() => console.log("success create")),
+        .then(() => {
+          setOpen(false);
+          enqueueSnackbar("Success", { variant: "success" });
+        }),
   });
 
   /*----- Formik Variables ------*/
