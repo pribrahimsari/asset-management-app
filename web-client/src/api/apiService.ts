@@ -28,9 +28,8 @@ export const createAsset = async () => {
   return axios.post(requestUrl, assetData).then((res) => res.data);
 };
 
-export const deleteAsset = async () => {
-  // todo: move it to param
-  const url = new URL(`${API_VERSION}/assets/37`, BASE_URL);
+export const deleteAsset = async ({ assetId }: { assetId: string }) => {
+  const url = new URL(`${API_VERSION}/assets/${assetId}`, BASE_URL);
   const { href: requestUrl } = url;
 
   return axios.delete(requestUrl).then((res) => res.data);
