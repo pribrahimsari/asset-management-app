@@ -6,9 +6,7 @@ const AssetList = () => {
   const { assets, isFetching, fetchNextPage, hasNextPage } = useAssetContext();
 
   return (
-    <main>
-      <h1>Asset Management Application</h1>
-
+    <>
       <BasicCreateDeleteButtons />
 
       <InfiniteScroll
@@ -34,7 +32,7 @@ const AssetList = () => {
       </InfiniteScroll>
 
       {!hasNextPage && <p>Nothing left to fetch (Total: {assets.length} assets)</p>}
-    </main>
+    </>
   );
 };
 
