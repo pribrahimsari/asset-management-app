@@ -57,6 +57,8 @@ const App = () => {
             ))}
         </ul>
       </InfiniteScroll>
+
+      {!hasNextPage && <p>Nothing left to fetch (Total: {assets.length} assets)</p>}
     </main>
   );
 };
