@@ -19,7 +19,7 @@ const App = () => {
     // Why type assertion here?
     // issue on react-query v4: https://github.com/TanStack/query/issues/3065
     return (
-      (data as PaginatedResponseBody)?.pages.reduce((acc, page) => [...acc, ...page.data], [] as Asset[]) ||
+      (data as PaginatedResponseBody)?.pages?.reduce((acc, page) => [...acc, ...page.data], [] as Asset[]) ||
       []
     );
   }, [data]);
