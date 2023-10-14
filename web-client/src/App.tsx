@@ -1,20 +1,13 @@
-// todo: import from ENV when needed
-// const ANY_API_URL = import.meta.env.VITE_ANY_API_URL;
-// console.debug({ ANY_API_URL });
-
 import { useInfiniteQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useMemo } from "react";
-
-const fetchAssets = async ({ pageParam = 1 }) => {
-  const response = await fetch(`http://localhost:8000/v1/assets?page=${pageParam}`);
-  return await response.json();
-};
+import { getAssets } from "src/api/apiService.ts";
+import { Asset, PaginatedResponseBody } from "src/types/ApiTypes.ts";
 
 const App = () => {
   const { data, hasNextPage, fetchNextPage } = useInfiniteQuery({
     queryKey: ["assets"],
-    queryFn: fetchAssets,
+    queryFn: getAssets,
     getNextPageParam: (lastPage) => {
       const lastPageNr = lastPage.meta.last_page;
       const currPageNr = lastPage.meta.current_page;
@@ -23,8 +16,13 @@ const App = () => {
   });
 
   const assets = useMemo(() => {
-    return data?.pages.reduce((acc, page) => [...acc, ...page.data], []);
-  }, [data?.pages]);
+    // Why type assertion here?
+    // issue on react-query v4: https://github.com/TanStack/query/issues/3065
+    return (
+      (data as PaginatedResponseBody)?.pages.reduce((acc, page) => [...acc, ...page.data], [] as Asset[]) ||
+      []
+    );
+  }, [data]);
 
   console.debug({ data });
   console.debug({ assets });
