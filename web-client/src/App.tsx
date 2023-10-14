@@ -1,65 +1,59 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { useMemo } from "react";
-import { getAssets } from "src/api/apiService.ts";
-import { Asset, PaginatedInfiniteData } from "src/types/ApiTypes.ts";
-import BasicCreateDeleteButtons from "src/BasicCreateDeleteButtons.tsx";
+import AssetList from "src/components/AssetList.tsx";
+import { Box } from "@mui/joy";
+import { makeStyles } from "tss-react/mui";
+import Header from "src/components/Layout/Header.tsx";
+import Sidebar from "src/components/Layout/Sidebar.tsx";
+import StickySubHeader from "src/components/Layout/StickySubHeader.tsx";
+
+// thanks to TSS-React lib for CSS in TS solution as in MUI v4
+const useStyles = makeStyles()(() => ({
+  mainBox: {
+    pt: {
+      xs: "calc(12px + var(--Header-height))",
+      md: 3,
+    },
+    pb: {
+      xs: 2,
+      sm: 2,
+      md: 3,
+    },
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    minWidth: 0,
+    // height: "100dvh", // <-- breaks InfiniteScrolling
+    gap: 1,
+    overflow: "auto",
+  },
+}));
 
 const App = () => {
-  const { data, hasNextPage, fetchNextPage, isFetching } = useInfiniteQuery({
-    queryKey: ["assets"],
-    queryFn: getAssets,
-    getNextPageParam: (lastPage) => {
-      const lastPageNr = lastPage.meta.last_page;
-      const currPageNr = lastPage.meta.current_page;
-      return currPageNr < lastPageNr ? currPageNr + 1 : undefined;
-    },
-    // todo: check is necessary or not?
-    refetchOnWindowFocus: false,
-  });
-
-  const assets = useMemo(() => {
-    // Why type assertion here?
-    // issue on react-query v4: https://github.com/TanStack/query/issues/3065
-    return (
-      (data as PaginatedInfiniteData)?.pages?.reduce((acc, page) => [...acc, ...page.data], [] as Asset[]) ||
-      []
-    );
-  }, [data]);
-
-  console.debug({ data });
-  console.debug({ assets });
+  const { classes, cx } = useStyles();
 
   return (
-    <main>
-      <h1>Asset Management Application</h1>
+    <Box sx={{ display: "flex", minHeight: "100dvh" }}>
+      <Sidebar />
+      <Header />
 
-      <BasicCreateDeleteButtons />
-
-      <InfiniteScroll
-        next={() => !isFetching && fetchNextPage()}
-        hasMore={!!hasNextPage}
-        loader={<div>Loading</div>}
-        dataLength={assets.length || 0}
-      >
-        <ul>
-          {assets &&
-            assets.length &&
-            assets.map((asset) => (
-              <li key={asset.id}>
-                <p>
-                  <b>
-                    #{asset.id} - {asset.name}
-                  </b>
-                </p>
-                <p>{asset.description}</p>
-              </li>
-            ))}
-        </ul>
-      </InfiniteScroll>
-
-      {!hasNextPage && <p>Nothing left to fetch (Total: {assets.length} assets)</p>}
-    </main>
+      <Box component="main" className={cx(classes.mainBox, "MainContent")}>
+        <Box
+          sx={{
+            flex: 1,
+            width: "100%",
+            paddingTop: "var(--Header-height)",
+          }}
+        >
+          <StickySubHeader />
+          <Box
+            sx={{
+              padding: "10px",
+            }}
+          >
+            <AssetList />
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

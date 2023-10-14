@@ -10,8 +10,9 @@
 - yarn
 - vite
 - react
-- 
-
+- tanstack react query
+- react infinite scroll component
+- JoyUI by MUI
 
 ### Project Requirements
 1. Asset Addition:
