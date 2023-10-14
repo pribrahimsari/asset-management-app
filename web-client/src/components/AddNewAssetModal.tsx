@@ -35,6 +35,7 @@ const AddNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: boole
         })
         .then(() => {
           setOpen(false);
+          resetForm();
           enqueueSnackbar("Success", { variant: "success" });
         }),
   });
