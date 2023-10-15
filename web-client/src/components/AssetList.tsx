@@ -3,6 +3,7 @@ import { useAssetContext } from "src/context/AssetContext.tsx";
 import List from "@mui/joy/List";
 import AssetCard from "src/components/AssetCard/AssetCard.tsx";
 import SkeletonAssetCard from "src/components/AssetCard/SkeletonAssetCard.tsx";
+import LoadingSpinner from "src/components/LoadingSpinner.tsx";
 
 const AssetList = () => {
   const { assets, isFetching, fetchNextPage, hasNextPage, isFetchingNextPage } = useAssetContext();
@@ -12,7 +13,7 @@ const AssetList = () => {
       <InfiniteScroll
         next={() => !isFetching && fetchNextPage()}
         hasMore={!!hasNextPage}
-        loader={<div>Loading</div>}
+        loader={<LoadingSpinner />}
         dataLength={assets.length || 0}
       >
         <List

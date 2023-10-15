@@ -1,13 +1,13 @@
 import AssetList from "src/components/AssetList.tsx";
-import { Box, CircularProgress } from "@mui/joy";
+import { Box } from "@mui/joy";
 import { makeStyles } from "tss-react/mui";
 import Header from "src/components/Layout/Header.tsx";
 import Sidebar from "src/components/Layout/Sidebar.tsx";
 import StickySubHeader from "src/components/Layout/StickySubHeader.tsx";
 import { useAssetContext } from "src/context/AssetContext.tsx";
-import { RiImage2Fill } from "react-icons/ri";
 import { useSnackbar } from "notistack";
 import { useEffect } from "react";
+import LoadingSpinner from "src/components/LoadingSpinner.tsx";
 
 // thanks to TSS-React lib for CSS in TS solution as in MUI v4
 const useStyles = makeStyles()(() => ({
@@ -65,15 +65,7 @@ const App = () => {
               padding: "10px",
             }}
           >
-            {isInitialLoading ? (
-              <Box display="flex" justifyContent="center" alignItems="center" sx={{ padding: 20 }}>
-                <CircularProgress color="primary" sx={{ "--CircularProgress-size": "200px" }}>
-                  <RiImage2Fill color="primary" />
-                </CircularProgress>
-              </Box>
-            ) : (
-              <AssetList />
-            )}
+            {isInitialLoading ? <LoadingSpinner /> : <AssetList />}
           </Box>
         </Box>
       </Box>
