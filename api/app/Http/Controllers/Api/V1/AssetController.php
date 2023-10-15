@@ -18,7 +18,6 @@ class AssetController extends Controller
     {
         $sortBy = $request->sortBy ?? "id-desc";
 
-        // todo: validation for orderBy
         $arr = explode("-",$sortBy);
         $orderBy = $arr[0];
         $order = $arr[1];
