@@ -31,7 +31,7 @@
 - [x] ~~Deleted assets should be removed from the list.~~
 
 4. Asset List Status:
-- [ ] Show users the total number of assets and the count of each asset type.
+- [x] ~~Show users the total number of assets and the count of each asset type.~~
 
 5. Data Management:
 - [x] ~~Use an appropriate data management strategy to store assets.~~
@@ -39,7 +39,7 @@
 
 6. User-Friendly Interface:
 - [x] ~~Create a clean, well-organized user interface to enhance the user experience.~~
-- [ ] Style your application using CSS or a CSS framework, such as Bootstrap.
+- [x] ~~Style your application using CSS or a CSS framework, such as Bootstrap.~~
 
 7. Optional Advanced Features:
 - [ ] Enable assets to be sorted by type, addition date, or priority.

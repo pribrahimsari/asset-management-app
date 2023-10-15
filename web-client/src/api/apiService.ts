@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GetAssetsQueryResult } from "src/types/ApiTypes.ts";
+import { GetAssetsQueryResult, GetAssetTypesQueryResult } from "src/types/ApiTypes.ts";
 import { CreateAssetFormValues } from "src/types/CustomTypes.tsx";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
@@ -26,4 +26,14 @@ export const deleteAsset = async ({ assetId }: { assetId: string }) => {
   const { href: requestUrl } = url;
 
   return axios.delete(requestUrl).then((res) => res.data);
+};
+
+//--------------------------
+
+export const getAssetTypes = async (): Promise<GetAssetTypesQueryResult> => {
+  // build the url to this format: http://....../v1/types
+  const url = new URL(`${API_VERSION}/types`, BASE_URL);
+  const { href: requestUrl } = url;
+
+  return axios.get(requestUrl).then((res) => res.data);
 };

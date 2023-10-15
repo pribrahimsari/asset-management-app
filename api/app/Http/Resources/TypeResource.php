@@ -17,6 +17,7 @@ class TypeResource extends JsonResource
         return [
             "id"=>$this->id,
             "name"=>$this->type_name,
+            "assets_count"=>$this->assets->count(),
         ];
     }
 }
