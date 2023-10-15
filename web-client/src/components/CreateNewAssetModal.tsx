@@ -62,13 +62,19 @@ const CreateNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: bo
       priority: "",
       addition_time: "",
       tags: [],
-      notes: [],
+      notes: [{ note: "" }],
     }),
     []
   );
 
   const handleSubmit = (values: CreateAssetFormValues) => {
-    createMutation.mutate({ values });
+    let submitValues = { ...values };
+    // clean notes if n/a
+    if (!values.notes[0].note) {
+      submitValues = { ...values, notes: [] };
+    }
+
+    createMutation.mutate({ values: submitValues });
   };
 
   const {
@@ -186,6 +192,29 @@ const CreateNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: bo
               <Option value="High">High</Option>
             </Select>
           </FormControl>
+
+          <Box display="flex" alignItems="flex-start" gap={1}>
+            <Box width="50%">todo tags</Box>
+
+            <Box width="50%">
+              <FormControl>
+                <FormLabel>Note</FormLabel>
+                <Textarea
+                  name="notes.0"
+                  value={values.notes[0].note}
+                  onChange={(e) => {
+                    setFieldValue("notes.0.note", e.target.value);
+                  }}
+                  // onBlur={handleBlur}
+                  // error={touched.description && !!errors.description}
+                  size="sm"
+                  placeholder="Write your notes if available"
+                  minRows={2}
+                  maxRows={4}
+                />
+              </FormControl>
+            </Box>
+          </Box>
 
           <Box display="flex" justifyContent="center" alignItems="center" gap={1}>
             <Box width="33%">
