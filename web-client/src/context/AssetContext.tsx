@@ -11,6 +11,7 @@ export type AssetContextType = {
   isFetching?: boolean;
   isInitialLoading?: boolean;
   isRefetching?: boolean;
+  isFetchingNextPage?: boolean;
   allAssetTypes: AssetType[];
   listedAssetTypes: AssetType[];
   sortBy: AssetSortOptionsTypes;
@@ -22,16 +23,17 @@ const AssetContext = createContext<AssetContextType | undefined>(undefined);
 export const AssetContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [sortBy, setSortBy] = useState<AssetSortOptionsTypes>("name-desc");
 
-  const { data, hasNextPage, fetchNextPage, isFetching, isRefetching, isInitialLoading } = useInfiniteQuery({
-    queryKey: ["assets", sortBy],
-    queryFn: ({ pageParam }) => getAssets({ pageParam, sortBy }),
-    getNextPageParam: (lastPage) => {
-      const lastPageNr = lastPage.meta.last_page;
-      const currPageNr = lastPage.meta.current_page;
-      return currPageNr < lastPageNr ? currPageNr + 1 : undefined;
-    },
-    refetchOnWindowFocus: false,
-  });
+  const { data, hasNextPage, fetchNextPage, isFetching, isRefetching, isInitialLoading, isFetchingNextPage } =
+    useInfiniteQuery({
+      queryKey: ["assets", sortBy],
+      queryFn: ({ pageParam }) => getAssets({ pageParam, sortBy }),
+      getNextPageParam: (lastPage) => {
+        const lastPageNr = lastPage.meta.last_page;
+        const currPageNr = lastPage.meta.current_page;
+        return currPageNr < lastPageNr ? currPageNr + 1 : undefined;
+      },
+      refetchOnWindowFocus: false,
+    });
 
   const assets = useMemo(() => {
     // Why type assertion here?
@@ -80,6 +82,7 @@ export const AssetContextProvider = ({ children }: { children: React.ReactNode }
         isFetching,
         isRefetching,
         isInitialLoading,
+        isFetchingNextPage,
         allAssetTypes,
         listedAssetTypes,
         sortBy,
