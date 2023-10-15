@@ -44,9 +44,9 @@ export default function Sidebar() {
       <GlobalStyles
         styles={(theme) => ({
           ":root": {
-            "--Sidebar-width": "220px",
+            "--Sidebar-width": "340px",
             [theme.breakpoints.up("lg")]: {
-              "--Sidebar-width": "240px",
+              "--Sidebar-width": "340px",
             },
           },
         })}
@@ -106,9 +106,7 @@ export default function Sidebar() {
 
       <Divider />
 
-      <Box>
-        <AssetStatistics />
-      </Box>
+      <AssetStatistics />
 
       <Divider />
 
