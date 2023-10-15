@@ -1,4 +1,5 @@
 import {
+  Autocomplete,
   Box,
   Button,
   DialogTitle,
@@ -24,6 +25,8 @@ import { AxiosError } from "axios";
 import { useAssetContext } from "src/context/AssetContext.tsx";
 import { MdCancel } from "react-icons/md";
 import { BiReset, BiSolidSave } from "react-icons/bi";
+import Chip from "@mui/joy/Chip";
+import { IoIosCloseCircle } from "react-icons/io";
 
 const CreateNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => void }) => {
   const queryClient = useQueryClient();
@@ -194,7 +197,46 @@ const CreateNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: bo
           </FormControl>
 
           <Box display="flex" alignItems="flex-start" gap={1}>
-            <Box width="50%">todo tags</Box>
+            <Box width="50%">
+              <FormControl>
+                <FormLabel>Tags</FormLabel>
+                <Autocomplete
+                  size="sm"
+                  limitTags={3}
+                  freeSolo
+                  multiple
+                  placeholder="Write a tag and press Enter"
+                  options={[]}
+                  renderTags={(tags, getTagProps) =>
+                    tags.map((item, index) => (
+                      <Chip
+                        variant="solid"
+                        color="primary"
+                        endDecorator={<IoIosCloseCircle fontSize="sm" />}
+                        {...getTagProps({ index })}
+                      >
+                        {item}
+                      </Chip>
+                    ))
+                  }
+                  slotProps={{
+                    input: {
+                      style: { width: "100%" },
+                    },
+                  }}
+                  value={values.tags.map((tag) => tag.label)}
+                  onChange={(_event, value) => {
+                    // eliminate empty strings
+                    const values = value.filter((v) => v && !!v.trim());
+                    // set formik value in the format desired
+                    setFieldValue(
+                      "tags",
+                      values.map((label) => ({ label }))
+                    );
+                  }}
+                />
+              </FormControl>
+            </Box>
 
             {/* Note Field */}
             {/* Note myself: first I planned one-to-many relationship asset to notes */}
