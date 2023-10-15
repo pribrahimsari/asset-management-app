@@ -12,6 +12,7 @@ import { GiLinkedRings } from "react-icons/gi";
 import { Card, Option, Select, Stack, Tooltip } from "@mui/joy";
 import { FaSortAlphaDown } from "react-icons/fa";
 import CreateNewAssetCard from "src/components/CreateNewAssetCard.tsx";
+import AssetStatistics from "src/components/AssetStatistics/AssetStatistics.tsx";
 
 export default function Sidebar() {
   return (
@@ -127,7 +128,9 @@ export default function Sidebar() {
 
       <Divider />
 
-      <Box>TODO: Charts for Statistics</Box>
+      <Box>
+        <AssetStatistics />
+      </Box>
 
       <Divider />
 
