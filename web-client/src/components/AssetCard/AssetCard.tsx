@@ -10,10 +10,11 @@ import { useMemo } from "react";
 import dayjs from "dayjs";
 import IconButton from "@mui/joy/IconButton";
 import { AspectRatio, Tooltip } from "@mui/joy";
-import { GrNotes, GrView } from "react-icons/gr";
+import { GrNotes } from "react-icons/gr";
 import { slugify } from "src/utils/utils.ts";
 import { BiSignal2, BiSignal3, BiSignal5 } from "react-icons/bi";
 import AssetDeleteButton from "src/components/AssetCard/AssetDeleteButton.tsx";
+import { RiEyeFill } from "react-icons/ri";
 
 const AssetCard = ({ asset }: { asset: Asset }) => {
   // format addition date
@@ -54,7 +55,7 @@ const AssetCard = ({ asset }: { asset: Asset }) => {
 
           <Tooltip title="View">
             <IconButton variant="outlined" color="primary" size="sm" onClick={function () {}}>
-              <GrView />
+              <RiEyeFill />
             </IconButton>
           </Tooltip>
           {/*<Tooltip title="Add Note/Tags">*/}
