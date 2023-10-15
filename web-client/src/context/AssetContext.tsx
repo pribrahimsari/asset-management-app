@@ -9,6 +9,7 @@ export type AssetContextType = {
   fetchNextPage: InfiniteQueryObserverBaseResult["fetchNextPage"];
   isFetching?: boolean;
   allAssetTypes: AssetType[];
+  listedAssetTypes: AssetType[];
 };
 
 const AssetContext = createContext<AssetContextType | undefined>(undefined);
@@ -35,6 +36,24 @@ export const AssetContextProvider = ({ children }: { children: React.ReactNode }
   }, [data]);
 
   //--------------------------
+
+  const listedAssetTypes = useMemo(() => {
+    return assets.reduce((acc, asset) => {
+      //is available in accumulator?
+      const i = acc.findIndex((t) => t.id === asset.type_id);
+      if (i > -1) {
+        // available in accumulator:
+        acc[i].assets_count++;
+      } else {
+        // n/a in acc
+        acc.push({ id: asset.type_id, name: asset.type.name, assets_count: 1 });
+      }
+      return acc;
+    }, [] as AssetType[]);
+  }, [assets]);
+
+  //--------------------------
+
   // Get Asset Types with asset counts --> use in Type Select + Statistics
   const { data: allAssetTypesData } = useQuery({
     queryKey: ["assetTypes"],
@@ -53,6 +72,7 @@ export const AssetContextProvider = ({ children }: { children: React.ReactNode }
         fetchNextPage,
         isFetching,
         allAssetTypes,
+        listedAssetTypes,
       }}
     >
       {children}
