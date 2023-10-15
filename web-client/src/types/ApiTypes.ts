@@ -9,6 +9,10 @@ export type GetAssetsQueryResult = {
   meta: PaginationMetaInfo;
 };
 
+export type GetAssetDetailssQueryResult = {
+  data: Asset;
+};
+
 export type Asset = {
   id: number;
   name: string;

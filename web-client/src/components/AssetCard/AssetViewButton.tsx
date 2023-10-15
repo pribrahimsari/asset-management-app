@@ -1,11 +1,36 @@
 import IconButton from "@mui/joy/IconButton";
 import { RiEyeFill } from "react-icons/ri";
-import { DialogContent, DialogTitle, Modal, ModalClose, ModalDialog, ModalOverflow, Tooltip } from "@mui/joy";
+import {
+  Box,
+  DialogContent,
+  DialogTitle,
+  Modal,
+  ModalClose,
+  ModalDialog,
+  ModalOverflow,
+  Tooltip,
+} from "@mui/joy";
 import { Asset } from "src/types/ApiTypes.ts";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getAssetDetails } from "src/api/apiService.ts";
+import LoadingSpinner from "src/components/LoadingSpinner.tsx";
 
 const AssetViewButton = ({ asset }: { asset: Asset }) => {
   const [open, setOpen] = useState(false);
+
+  const assetId = asset.id.toString();
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["assetDetails", assetId],
+    queryFn: () => getAssetDetails({ assetId }),
+    refetchOnWindowFocus: false,
+    enabled: open,
+  });
+
+  const assetDetails = useMemo(() => {
+    return data?.data;
+  }, [data?.data]);
 
   return (
     <>
@@ -26,7 +51,17 @@ const AssetViewButton = ({ asset }: { asset: Asset }) => {
             <DialogContent>
               <p>Description</p>
               <div>{asset.description}</div>
-              todo: other details fetch
+
+              {isLoading && <LoadingSpinner />}
+
+              {!isLoading && !assetDetails && <p>Error</p>}
+
+              {!isLoading && assetDetails && (
+                <Box display="flex" justifyContent="center" alignItems="center">
+                  <br />
+                  <i>-- Data was fetched from db for this asset --</i>
+                </Box>
+              )}
             </DialogContent>
           </ModalDialog>
         </ModalOverflow>
