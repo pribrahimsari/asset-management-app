@@ -7,16 +7,23 @@ use App\Models\Asset;
 use App\Http\Resources\AssetResource;
 use App\Http\Requests\StoreAssetRequest;
 use App\Http\Requests\UpdateAssetRequest;
+use Illuminate\Http\Request;
 
 class AssetController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // todo: improve the pagination: should support sortBy
-        return AssetResource::collection(Asset::orderBy("id", "desc")->paginate(20));
+        $sortBy = $request->sortBy ?? "id-desc";
+
+        // todo: validation for orderBy
+        $arr = explode("-",$sortBy);
+        $orderBy = $arr[0];
+        $order = $arr[1];
+
+        return AssetResource::collection(Asset::orderBy($orderBy, $order)->paginate(20));
     }
 
     /**
