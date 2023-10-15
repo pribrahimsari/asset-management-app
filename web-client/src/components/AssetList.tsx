@@ -4,6 +4,7 @@ import List from "@mui/joy/List";
 import AssetCard from "src/components/AssetCard/AssetCard.tsx";
 import SkeletonAssetCard from "src/components/AssetCard/SkeletonAssetCard.tsx";
 import LoadingSpinner from "src/components/LoadingSpinner.tsx";
+import NothingLeftToFetch from "src/components/NothingLeftToFetch.tsx";
 
 const AssetList = () => {
   const { assets, isFetching, fetchNextPage, hasNextPage, isFetchingNextPage } = useAssetContext();
@@ -30,7 +31,7 @@ const AssetList = () => {
         </List>
       </InfiniteScroll>
 
-      {!hasNextPage && <p>Nothing left to fetch (Total: {assets.length} assets)</p>}
+      {!hasNextPage && <NothingLeftToFetch totalAssetsCount={assets.length} />}
     </>
   );
 };
