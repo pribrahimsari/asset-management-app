@@ -27,8 +27,8 @@
 - [x] ~~A home screen to list the first 20 assets and when the user scrolls down to the end of the list it loads automatically the next 20 assets.~~
 
 3. Asset Deletion:
-- [ ] Implement functionality that allows users to remove assets from the list.
-- [ ] Deleted assets should be removed from the list.
+- [x] ~~Implement functionality that allows users to remove assets from the list.~~
+- [x] ~~Deleted assets should be removed from the list.~~
 
 4. Asset List Status:
 - [ ] Show users the total number of assets and the count of each asset type.
