@@ -7,9 +7,10 @@ env:
 on:
   push:
     branches:
-      - FE/7-ci-cd-fe-deployment-to-vercel
-#    paths:
-#      - 'web-client/**'
+      - main
+    paths:
+      - 'web-client/**'
+
 jobs:
   Deploy-Web-Client-To-Vercel-Production:
     runs-on: ubuntu-latest
