@@ -1,4 +1,4 @@
-import { ArcElement, Chart as ChartJS, Legend, Tooltip } from "chart.js";
+import { ArcElement, Chart as ChartJS, Legend, Tooltip, ChartOptions } from "chart.js";
 import { Pie } from "react-chartjs-2";
 import { useMemo } from "react";
 import { AssetType } from "src/types/ApiTypes.ts";
@@ -6,6 +6,15 @@ import { generateRandomRgbAColor } from "src/utils/utils.ts";
 import { useTheme } from "@mui/joy";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
+
+const options: ChartOptions = {
+  responsive: true,
+  plugins: {
+    legend: {
+      display: false,
+    },
+  },
+};
 
 const AssetTypeStatisticsPieChart = ({ assetTypes }: { assetTypes: AssetType[] }) => {
   const themeMode = useTheme().palette.mode;
@@ -25,7 +34,7 @@ const AssetTypeStatisticsPieChart = ({ assetTypes }: { assetTypes: AssetType[] }
     };
   }, [assetTypes, themeMode]);
 
-  return <Pie data={chartData} />;
+  return <Pie data={chartData} options={options} />;
 };
 
 export default AssetTypeStatisticsPieChart;
