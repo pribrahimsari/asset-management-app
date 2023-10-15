@@ -29,7 +29,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           horizontal: "right",
         }}
       >
-        {/* todo: better fallback for whole app */}
         <React.Suspense fallback="Loading...">
           <AssetContextProvider>
             <StyledEngineProvider injectFirst>
