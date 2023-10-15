@@ -2,9 +2,10 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useAssetContext } from "src/context/AssetContext.tsx";
 import List from "@mui/joy/List";
 import AssetCard from "src/components/AssetCard/AssetCard.tsx";
+import SkeletonAssetCard from "src/components/AssetCard/SkeletonAssetCard.tsx";
 
 const AssetList = () => {
-  const { assets, isFetching, fetchNextPage, hasNextPage } = useAssetContext();
+  const { assets, isFetching, fetchNextPage, hasNextPage, isFetchingNextPage } = useAssetContext();
 
   return (
     <>
@@ -22,6 +23,9 @@ const AssetList = () => {
           }}
         >
           {assets && assets.length && assets.map((asset) => <AssetCard key={asset.id} asset={asset} />)}
+
+          {/* beautiful fetching next items animation */}
+          {isFetchingNextPage && [1, 2].map((i) => <SkeletonAssetCard key={i} />)}
         </List>
       </InfiniteScroll>
 
