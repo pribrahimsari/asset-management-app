@@ -200,11 +200,9 @@ const CreateNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: bo
               <FormControl>
                 <FormLabel>Note</FormLabel>
                 <Textarea
-                  name="notes.0"
+                  name="notes.0.note"
                   value={values.notes[0].note}
-                  onChange={(e) => {
-                    setFieldValue("notes.0.note", e.target.value);
-                  }}
+                  onChange={handleChange}
                   // onBlur={handleBlur}
                   // error={touched.description && !!errors.description}
                   size="sm"
