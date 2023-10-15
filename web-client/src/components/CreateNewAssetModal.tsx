@@ -61,6 +61,8 @@ const CreateNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: bo
       type_id: "",
       priority: "",
       addition_time: "",
+      tags: [],
+      notes: [],
     }),
     []
   );
