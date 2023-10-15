@@ -1,7 +1,8 @@
-import React, { createContext, useContext, useMemo } from "react";
+import React, { createContext, useContext, useMemo, useState } from "react";
 import { InfiniteQueryObserverBaseResult, useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { getAssets, getAssetTypes } from "src/api/apiService.ts";
 import { Asset, AssetType, PaginatedInfiniteData } from "src/types/ApiTypes.ts";
+import { AssetSortOptionsTypes } from "src/types/CustomTypes.tsx";
 
 export type AssetContextType = {
   assets: Asset[];
@@ -10,14 +11,18 @@ export type AssetContextType = {
   isFetching?: boolean;
   allAssetTypes: AssetType[];
   listedAssetTypes: AssetType[];
+  sortBy: AssetSortOptionsTypes;
+  setSortBy: (option: AssetSortOptionsTypes) => void;
 };
 
 const AssetContext = createContext<AssetContextType | undefined>(undefined);
 
 export const AssetContextProvider = ({ children }: { children: React.ReactNode }) => {
+  const [sortBy, setSortBy] = useState<AssetSortOptionsTypes>("name-desc");
+
   const { data, hasNextPage, fetchNextPage, isFetching } = useInfiniteQuery({
-    queryKey: ["assets"],
-    queryFn: getAssets,
+    queryKey: ["assets", sortBy],
+    queryFn: ({ pageParam }) => getAssets({ pageParam, sortBy }),
     getNextPageParam: (lastPage) => {
       const lastPageNr = lastPage.meta.last_page;
       const currPageNr = lastPage.meta.current_page;
@@ -73,6 +78,8 @@ export const AssetContextProvider = ({ children }: { children: React.ReactNode }
         isFetching,
         allAssetTypes,
         listedAssetTypes,
+        sortBy,
+        setSortBy,
       }}
     >
       {children}
