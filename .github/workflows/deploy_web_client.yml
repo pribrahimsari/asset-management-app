@@ -1,0 +1,25 @@
+# https://vercel.com/guides/how-can-i-use-github-actions-with-vercel
+# but customized for mono-repo + Vite
+name: 🎊 Deploy Frontend
+env:
+  VERCEL_ORG_ID: ${{ secrets.WEB_CLIENT_VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.WEB_CLIENT_VERCEL_PROJECT_ID }}
+on:
+  push:
+    branches:
+      - FE/7-ci-cd-fe-deployment-to-vercel
+#    paths:
+#      - 'web-client/**'
+jobs:
+  Deploy-Production:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.WEB_CLIENT_VERCEL_TOKEN }}
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ secrets.WEB_CLIENT_VERCEL_TOKEN }}
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.WEB_CLIENT_VERCEL_TOKEN }}
