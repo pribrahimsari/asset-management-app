@@ -53,7 +53,7 @@ const AssetCard = ({ asset }: { asset: Asset }) => {
           <AssetDeleteButton asset={asset} />
 
           <Tooltip title="View">
-            <IconButton variant="soft" color="primary" size="sm" onClick={function () {}}>
+            <IconButton variant="outlined" color="primary" size="sm" onClick={function () {}}>
               <GrView />
             </IconButton>
           </Tooltip>
