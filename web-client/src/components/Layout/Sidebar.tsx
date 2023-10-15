@@ -9,10 +9,10 @@ import Sheet from "@mui/joy/Sheet";
 import ColorSchemeToggle from "./ColorSchemeToggle";
 import { closeSidebar } from "./layoutUtils";
 import { GiLinkedRings } from "react-icons/gi";
-import { Card, Option, Select, Stack, Tooltip } from "@mui/joy";
-import { FaSortAlphaDown } from "react-icons/fa";
+import { Tooltip } from "@mui/joy";
 import CreateNewAssetCard from "src/components/CreateNewAssetCard.tsx";
 import AssetStatistics from "src/components/AssetStatistics/AssetStatistics.tsx";
+import SortAssetsSelectCard from "src/components/SortAssetsSelectCard.tsx";
 
 export default function Sidebar() {
   return (
@@ -101,29 +101,7 @@ export default function Sidebar() {
       >
         <CreateNewAssetCard />
 
-        {/*  todo */}
-        <Card variant="soft" color="warning" size="sm" sx={{ boxShadow: "none" }}>
-          <Stack direction="row" justifyContent="space-between" alignItems="center">
-            <Typography level="title-sm">Sort</Typography>
-            <FaSortAlphaDown />
-          </Stack>
-          <Typography level="body-xs">
-            You can sort assets listed by id, type, addition date or priority
-          </Typography>
-          <Select
-            variant="outlined"
-            color="warning"
-            placeholder="Sort By"
-            startDecorator={<FaSortAlphaDown />}
-            size="sm"
-            // sx={{ width: 240 }}
-          >
-            <Option value="dog">Dog</Option>
-            <Option value="cat">Cat</Option>
-            <Option value="fish">Fish</Option>
-            <Option value="bird">Bird</Option>
-          </Select>
-        </Card>
+        <SortAssetsSelectCard />
       </Box>
 
       <Divider />
