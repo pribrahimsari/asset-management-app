@@ -10,7 +10,7 @@ class Tag extends Model
 {
     use HasFactory;
     use SoftDeletes;
-
+    protected $fillable = ["label"];
     protected $dates = ['deleted_at'];
 
     public function asset() {
