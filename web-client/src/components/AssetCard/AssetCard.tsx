@@ -14,7 +14,7 @@ import { GrNotes } from "react-icons/gr";
 import { slugify } from "src/utils/utils.ts";
 import { BiSignal2, BiSignal3, BiSignal5 } from "react-icons/bi";
 import AssetDeleteButton from "src/components/AssetCard/AssetDeleteButton.tsx";
-import { RiEyeFill } from "react-icons/ri";
+import AssetViewButton from "src/components/AssetCard/AssetViewButton.tsx";
 
 const AssetCard = ({ asset }: { asset: Asset }) => {
   // format addition date
@@ -53,11 +53,8 @@ const AssetCard = ({ asset }: { asset: Asset }) => {
         <Box display="flex" justifyContent="flex-end" alignItems="center" gap={1}>
           <AssetDeleteButton asset={asset} />
 
-          <Tooltip title="View">
-            <IconButton variant="outlined" color="primary" size="sm" onClick={function () {}}>
-              <RiEyeFill />
-            </IconButton>
-          </Tooltip>
+          <AssetViewButton asset={asset} />
+
           {/*<Tooltip title="Add Note/Tags">*/}
           {/*  <IconButton variant="soft" color="danger" size="sm" onClick={function () {}}>*/}
           {/*    <MdOutlineRemoveCircleOutline />*/}
