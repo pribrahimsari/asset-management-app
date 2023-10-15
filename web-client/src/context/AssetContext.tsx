@@ -21,7 +21,7 @@ export type AssetContextType = {
 const AssetContext = createContext<AssetContextType | undefined>(undefined);
 
 export const AssetContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [sortBy, setSortBy] = useState<AssetSortOptionsTypes>("name-desc");
+  const [sortBy, setSortBy] = useState<AssetSortOptionsTypes>("id-desc");
 
   const { data, hasNextPage, fetchNextPage, isFetching, isRefetching, isInitialLoading, isFetchingNextPage } =
     useInfiniteQuery({

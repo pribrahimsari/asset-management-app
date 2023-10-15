@@ -19,8 +19,12 @@ import AssetViewButton from "src/components/AssetCard/AssetViewButton.tsx";
 const AssetCard = ({ asset }: { asset: Asset }) => {
   // format addition date
   const additionDateFormatted = useMemo(() => {
-    return asset.addition_time ? dayjs(asset.addition_time).format("MMM D, YYYY") : "-";
+    return asset.addition_time ? dayjs(asset.addition_time).format("MMM D, YYYY") : null;
   }, [asset.addition_time]);
+
+  const createdDateFormatted = useMemo(() => {
+    return asset.created_at ? dayjs(asset.created_at).format("MMM D, YYYY") : null;
+  }, [asset.created_at]);
 
   return (
     <Sheet
@@ -44,8 +48,13 @@ const AssetCard = ({ asset }: { asset: Asset }) => {
           <div>
             {/*todo: ellipsify those if you have time*/}
             <Typography>{asset.name}</Typography>
-            {/* todo: created at if not available */}
-            <Typography level="body-xs">Added on {additionDateFormatted}</Typography>
+            <Typography level="body-xs">
+              {additionDateFormatted
+                ? `Added on ${additionDateFormatted}`
+                : createdDateFormatted
+                ? `Created on ${createdDateFormatted}`
+                : "-"}
+            </Typography>
           </div>
         </Box>
 
@@ -128,24 +137,33 @@ const AssetCard = ({ asset }: { asset: Asset }) => {
         <Box>
           <Typography fontSize="sm">Tags:</Typography>
           <Box sx={{ mt: 1.5, display: "flex", gap: 1 }}>
-            <Chip variant="outlined" color="neutral" size="sm" sx={{ borderRadius: "sm" }}>
-              Tag Todo
-            </Chip>
-            <Chip variant="outlined" color="neutral" size="sm" sx={{ borderRadius: "sm" }}>
-              Tag Todo
-            </Chip>
+            {asset.tags?.length ? (
+              asset.tags.map((tag) => (
+                <Chip key={tag.id} variant="outlined" color="neutral" size="sm" sx={{ borderRadius: "sm" }}>
+                  {tag.label}
+                </Chip>
+              ))
+            ) : (
+              <Chip variant="outlined" color="neutral" size="sm" sx={{ borderRadius: "sm" }}>
+                -
+              </Chip>
+            )}
           </Box>
         </Box>
 
         {/*Notes*/}
         <Box>
-          <Typography fontSize="sm">Notes:</Typography>
+          <Typography fontSize="sm">Note:</Typography>
           <Box sx={{ mt: 1.5, display: "flex", gap: 1 }}>
-            <Tooltip title="Note: ....................">
-              <IconButton variant="plain" color="neutral" size="sm" onClick={function () {}}>
-                <GrNotes />
-              </IconButton>
-            </Tooltip>
+            {asset.notes?.length
+              ? asset.notes.map((note) => (
+                  <Tooltip key={note.id} title={note.note}>
+                    <IconButton variant="plain" color="neutral" size="sm" onClick={function () {}}>
+                      <GrNotes />
+                    </IconButton>
+                  </Tooltip>
+                ))
+              : "-"}
           </Box>
         </Box>
       </Box>

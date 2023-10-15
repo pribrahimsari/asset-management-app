@@ -20,7 +20,10 @@ export type Asset = {
   type_id: number;
   type: AssetType;
   addition_time: string;
+  created_at: string;
   priority: string;
+  tags?: AssetTag[];
+  notes?: AssetNote[];
 };
 
 export type AssetType = {
@@ -55,4 +58,16 @@ export type PaginationLink = {
 
 export type GetAssetTypesQueryResult = {
   data: AssetType[];
+};
+
+//-------------------
+
+export type AssetTag = {
+  id: number;
+  label: string;
+};
+
+export type AssetNote = {
+  id: number;
+  note: string;
 };

@@ -106,5 +106,5 @@ Please follow the instructions on Laravel 10.x documentation pages for the comma
 
 7. Optional Advanced Features:
 - [x] ~~Enable assets to be sorted by type, addition date, or priority.~~
-- [ ] Allow users to add tags or notes to assets for customization.
+- [x] ~~Allow users to add tags or notes to assets for customization.~~
 - [ ] Write tests to ensure the functionality of the application.
