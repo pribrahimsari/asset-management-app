@@ -21,7 +21,7 @@ const AssetStatistics = () => {
   return (
     <>
       <Typography startDecorator={<AiFillPieChart />} level="title-sm">
-        Types of Listed Assets ({listedAssetsCount})
+        Types of Assets Listed ({listedAssetsCount})
       </Typography>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <Box sx={{ width: "60%" }}>
@@ -32,7 +32,7 @@ const AssetStatistics = () => {
       <Divider />
 
       <Typography startDecorator={<FaChartPie />} level="title-sm">
-        Types of All Assets ({allAssetsCount})
+        Types of All Assets Recorded ({allAssetsCount})
       </Typography>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <Box sx={{ width: "60%", display: "flex", justifyContent: "center" }}>

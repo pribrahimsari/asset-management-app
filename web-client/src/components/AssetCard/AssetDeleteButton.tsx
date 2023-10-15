@@ -37,6 +37,7 @@ const AssetDeleteButton = ({ asset }: { asset: Asset }) => {
         .then(() => {
           enqueueSnackbar("Successfully deleted", { variant: "success" });
         });
+      queryClient.invalidateQueries(["assetTypes"]);
     },
   });
 

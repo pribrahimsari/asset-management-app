@@ -39,7 +39,7 @@ const CreateNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: bo
       // @ts-ignore
       enqueueSnackbar(error?.response?.data?.message || error.message || "Error", { variant: "error" });
     },
-    onSuccess: () =>
+    onSuccess: () => {
       queryClient
         .invalidateQueries({
           queryKey: ["assets"],
@@ -48,7 +48,9 @@ const CreateNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: bo
           setOpen(false);
           resetForm();
           enqueueSnackbar("Success", { variant: "success" });
-        }),
+        });
+      queryClient.invalidateQueries(["assetTypes"]);
+    },
   });
 
   /*----- Formik Variables ------*/
