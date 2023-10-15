@@ -7,7 +7,7 @@ import { MdCategory } from "react-icons/md";
 import Chip from "@mui/joy/Chip";
 import { Asset } from "src/types/ApiTypes.ts";
 import { useMemo } from "react";
-import * as dayjs from "dayjs";
+import dayjs from "dayjs";
 import IconButton from "@mui/joy/IconButton";
 import { AspectRatio, Tooltip } from "@mui/joy";
 import { GrNotes, GrView } from "react-icons/gr";
