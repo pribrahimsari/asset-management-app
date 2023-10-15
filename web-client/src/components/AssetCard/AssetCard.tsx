@@ -144,13 +144,17 @@ const AssetCard = ({ asset }: { asset: Asset }) => {
 
         {/*Notes*/}
         <Box>
-          <Typography fontSize="sm">Notes:</Typography>
+          <Typography fontSize="sm">Note:</Typography>
           <Box sx={{ mt: 1.5, display: "flex", gap: 1 }}>
-            <Tooltip title="Note: ....................">
-              <IconButton variant="plain" color="neutral" size="sm" onClick={function () {}}>
-                <GrNotes />
-              </IconButton>
-            </Tooltip>
+            {asset.notes?.length
+              ? asset.notes.map((note) => (
+                  <Tooltip key={note.id} title={note.note}>
+                    <IconButton variant="plain" color="neutral" size="sm" onClick={function () {}}>
+                      <GrNotes />
+                    </IconButton>
+                  </Tooltip>
+                ))
+              : "-"}
           </Box>
         </Box>
       </Box>
