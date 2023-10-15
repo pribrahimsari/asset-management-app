@@ -23,7 +23,7 @@
 
 2. Asset Viewing:
 - [x] ~~Display the added assets as a list.~~
-- [ ] Each asset should include attributes like name, description, type, addition date, and "View" or "Delete" buttons.
+- [x] ~~Each asset should include attributes like name, description, type, addition date, and "View" or "Delete" buttons.~~
 - [x] ~~A home screen to list the first 20 assets and when the user scrolls down to the end of the list it loads automatically the next 20 assets.~~
 
 3. Asset Deletion:
