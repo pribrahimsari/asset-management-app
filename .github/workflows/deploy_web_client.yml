@@ -11,7 +11,7 @@ on:
 #    paths:
 #      - 'web-client/**'
 jobs:
-  Deploy-Production:
+  Deploy-Web-Client-To-Vercel-Production:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
