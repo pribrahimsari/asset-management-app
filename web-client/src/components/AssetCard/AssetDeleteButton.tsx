@@ -1,12 +1,12 @@
 import { Box, Button, DialogContent, DialogTitle, Modal, ModalClose, ModalDialog, Tooltip } from "@mui/joy";
 import IconButton from "@mui/joy/IconButton";
-import { MdOutlineRemoveCircleOutline } from "react-icons/md";
 import { Asset } from "src/types/ApiTypes.ts";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteAsset } from "src/api/apiService.ts";
 import { useState } from "react";
 import { useSnackbar } from "notistack";
 import { AxiosError } from "axios";
+import { RiDeleteBinFill } from "react-icons/ri";
 
 const AssetDeleteButton = ({ asset }: { asset: Asset }) => {
   const [open, setOpen] = useState(false);
@@ -37,6 +37,7 @@ const AssetDeleteButton = ({ asset }: { asset: Asset }) => {
         .then(() => {
           enqueueSnackbar("Successfully deleted", { variant: "success" });
         });
+      queryClient.invalidateQueries(["assetTypes"]);
     },
   });
 
@@ -44,7 +45,7 @@ const AssetDeleteButton = ({ asset }: { asset: Asset }) => {
     <>
       <Tooltip title="Delete">
         <IconButton variant="outlined" color="danger" size="sm" onClick={() => setOpen(true)}>
-          <MdOutlineRemoveCircleOutline />
+          <RiDeleteBinFill />
         </IconButton>
       </Tooltip>
 

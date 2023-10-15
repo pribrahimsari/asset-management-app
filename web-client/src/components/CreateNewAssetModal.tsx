@@ -22,6 +22,8 @@ import { createAssetFormSchema } from "src/validations/formValidations.ts";
 import { useSnackbar } from "notistack";
 import { AxiosError } from "axios";
 import { useAssetContext } from "src/context/AssetContext.tsx";
+import { MdCancel } from "react-icons/md";
+import { BiReset, BiSolidSave } from "react-icons/bi";
 
 const CreateNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => void }) => {
   const queryClient = useQueryClient();
@@ -37,7 +39,7 @@ const CreateNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: bo
       // @ts-ignore
       enqueueSnackbar(error?.response?.data?.message || error.message || "Error", { variant: "error" });
     },
-    onSuccess: () =>
+    onSuccess: () => {
       queryClient
         .invalidateQueries({
           queryKey: ["assets"],
@@ -45,8 +47,10 @@ const CreateNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: bo
         .then(() => {
           setOpen(false);
           resetForm();
-          enqueueSnackbar("Success", { variant: "success" });
-        }),
+          enqueueSnackbar("Successfully added", { variant: "success" });
+        });
+      queryClient.invalidateQueries(["assetTypes"]);
+    },
   });
 
   /*----- Formik Variables ------*/
@@ -189,6 +193,7 @@ const CreateNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: bo
                 color="warning"
                 disabled={createMutation.isLoading}
                 loading={createMutation.isLoading}
+                startDecorator={<MdCancel />}
                 onClick={() => {
                   resetForm();
                   setOpen(false);
@@ -205,6 +210,7 @@ const CreateNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: bo
                 color="danger"
                 disabled={createMutation.isLoading}
                 loading={createMutation.isLoading}
+                startDecorator={<BiReset />}
                 onClick={() => {
                   resetForm();
                 }}
@@ -220,6 +226,7 @@ const CreateNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: bo
                 onClick={submitForm}
                 disabled={!(dirty && isValid) || createMutation.isLoading}
                 loading={createMutation.isLoading}
+                startDecorator={<BiSolidSave />}
               >
                 Add
               </Button>

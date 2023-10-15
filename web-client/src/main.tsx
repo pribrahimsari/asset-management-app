@@ -12,7 +12,9 @@ import SnackbarCloseButton from "src/components/SnackbarCloseButton.tsx";
 
 // React Query can also be used with React's Suspense for Data Fetching API's with its fallbacks
 const client = new QueryClient({
-  defaultOptions: { queries: { suspense: true } },
+  // commented this line, since changing sort config cause suspense mode for full screen
+  // todo: fix if you have time
+  // defaultOptions: { queries: { suspense: true } },
 });
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

@@ -8,7 +8,7 @@ import { useTheme } from "@mui/joy";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const options: ChartOptions = {
-  responsive: true,
+  // responsive: true,
   plugins: {
     legend: {
       display: false,

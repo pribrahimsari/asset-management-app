@@ -4,6 +4,8 @@ import Typography from "@mui/joy/Typography";
 import { AiFillPieChart } from "react-icons/ai";
 import { FaChartPie } from "react-icons/fa";
 import { useMemo } from "react";
+import { Box } from "@mui/joy";
+import Divider from "@mui/joy/Divider";
 
 const AssetStatistics = () => {
   const { listedAssetTypes, allAssetTypes } = useAssetContext();
@@ -17,17 +19,27 @@ const AssetStatistics = () => {
   }, [allAssetTypes]);
 
   return (
-    <div>
+    <>
       <Typography startDecorator={<AiFillPieChart />} level="title-sm">
-        Types of Listed Assets ({listedAssetsCount})
+        Types of Assets Listed ({listedAssetsCount})
       </Typography>
-      <AssetTypeStatisticsPieChart assetTypes={listedAssetTypes} />
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Box sx={{ width: "60%" }}>
+          <AssetTypeStatisticsPieChart assetTypes={listedAssetTypes} />
+        </Box>
+      </Box>
+
+      <Divider />
 
       <Typography startDecorator={<FaChartPie />} level="title-sm">
-        Types of All Assets ({allAssetsCount})
+        Types of All Assets Recorded ({allAssetsCount})
       </Typography>
-      <AssetTypeStatisticsPieChart assetTypes={allAssetTypes} />
-    </div>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Box sx={{ width: "60%", display: "flex", justifyContent: "center" }}>
+          <AssetTypeStatisticsPieChart assetTypes={allAssetTypes} />
+        </Box>
+      </Box>
+    </>
   );
 };
 

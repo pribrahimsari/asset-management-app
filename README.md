@@ -42,6 +42,6 @@
 - [x] ~~Style your application using CSS or a CSS framework, such as Bootstrap.~~
 
 7. Optional Advanced Features:
-- [ ] Enable assets to be sorted by type, addition date, or priority.
+- [x] ~~Enable assets to be sorted by type, addition date, or priority.~~
 - [ ] Allow users to add tags or notes to assets for customization.
 - [ ] Write tests to ensure the functionality of the application.
