@@ -22,4 +22,7 @@ class Asset extends Model
     public function tags(){
         return $this->hasMany(Tag::class);
     }
+    public function notes(){
+        return $this->hasMany(Note::class);
+    }
 }
