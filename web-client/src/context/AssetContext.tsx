@@ -9,6 +9,8 @@ export type AssetContextType = {
   hasNextPage?: boolean;
   fetchNextPage: InfiniteQueryObserverBaseResult["fetchNextPage"];
   isFetching?: boolean;
+  isInitialLoading?: boolean;
+  isRefetching?: boolean;
   allAssetTypes: AssetType[];
   listedAssetTypes: AssetType[];
   sortBy: AssetSortOptionsTypes;
@@ -20,7 +22,7 @@ const AssetContext = createContext<AssetContextType | undefined>(undefined);
 export const AssetContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [sortBy, setSortBy] = useState<AssetSortOptionsTypes>("name-desc");
 
-  const { data, hasNextPage, fetchNextPage, isFetching } = useInfiniteQuery({
+  const { data, hasNextPage, fetchNextPage, isFetching, isRefetching, isInitialLoading } = useInfiniteQuery({
     queryKey: ["assets", sortBy],
     queryFn: ({ pageParam }) => getAssets({ pageParam, sortBy }),
     getNextPageParam: (lastPage) => {
@@ -76,6 +78,8 @@ export const AssetContextProvider = ({ children }: { children: React.ReactNode }
         hasNextPage,
         fetchNextPage,
         isFetching,
+        isRefetching,
+        isInitialLoading,
         allAssetTypes,
         listedAssetTypes,
         sortBy,
