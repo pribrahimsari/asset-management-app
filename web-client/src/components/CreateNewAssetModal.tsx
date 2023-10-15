@@ -196,6 +196,9 @@ const CreateNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: bo
           <Box display="flex" alignItems="flex-start" gap={1}>
             <Box width="50%">todo tags</Box>
 
+            {/* Note Field */}
+            {/* Note myself: first I planned one-to-many relationship asset to notes */}
+            {/* But then I changed my mind for better UI */}
             <Box width="50%">
               <FormControl>
                 <FormLabel>Note</FormLabel>
