@@ -19,8 +19,12 @@ import AssetViewButton from "src/components/AssetCard/AssetViewButton.tsx";
 const AssetCard = ({ asset }: { asset: Asset }) => {
   // format addition date
   const additionDateFormatted = useMemo(() => {
-    return asset.addition_time ? dayjs(asset.addition_time).format("MMM D, YYYY") : "-";
+    return asset.addition_time ? dayjs(asset.addition_time).format("MMM D, YYYY") : null;
   }, [asset.addition_time]);
+
+  const createdDateFormatted = useMemo(() => {
+    return asset.created_at ? dayjs(asset.created_at).format("MMM D, YYYY") : null;
+  }, [asset.created_at]);
 
   return (
     <Sheet
@@ -44,8 +48,13 @@ const AssetCard = ({ asset }: { asset: Asset }) => {
           <div>
             {/*todo: ellipsify those if you have time*/}
             <Typography>{asset.name}</Typography>
-            {/* todo: created at if not available */}
-            <Typography level="body-xs">Added on {additionDateFormatted}</Typography>
+            <Typography level="body-xs">
+              {additionDateFormatted
+                ? `Added on ${additionDateFormatted}`
+                : createdDateFormatted
+                ? `Created on ${createdDateFormatted}`
+                : "-"}
+            </Typography>
           </div>
         </Box>
 
