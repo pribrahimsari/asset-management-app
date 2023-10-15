@@ -3,7 +3,7 @@ import Box from "@mui/joy/Box";
 import Avatar from "@mui/joy/Avatar";
 import Typography from "@mui/joy/Typography";
 import Divider from "@mui/joy/Divider";
-import { MdCategory, MdOutlineRemoveCircleOutline } from "react-icons/md";
+import { MdCategory } from "react-icons/md";
 import Chip from "@mui/joy/Chip";
 import { Asset } from "src/types/ApiTypes.ts";
 import { useMemo } from "react";
@@ -13,6 +13,7 @@ import { AspectRatio, Tooltip } from "@mui/joy";
 import { GrNotes, GrView } from "react-icons/gr";
 import { slugify } from "src/utils/utils.ts";
 import { BiSignal2, BiSignal3, BiSignal5 } from "react-icons/bi";
+import AssetDeleteButton from "src/components/AssetCard/AssetDeleteButton.tsx";
 
 const AssetCard = ({ asset }: { asset: Asset }) => {
   // format addition date
@@ -49,11 +50,8 @@ const AssetCard = ({ asset }: { asset: Asset }) => {
 
         {/*Buttons */}
         <Box display="flex" justifyContent="flex-end" alignItems="center" gap={1}>
-          <Tooltip title="Delete">
-            <IconButton variant="outlined" color="danger" size="sm" onClick={function () {}}>
-              <MdOutlineRemoveCircleOutline />
-            </IconButton>
-          </Tooltip>
+          <AssetDeleteButton asset={asset} />
+
           <Tooltip title="View">
             <IconButton variant="soft" color="primary" size="sm" onClick={function () {}}>
               <GrView />
