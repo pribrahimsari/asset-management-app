@@ -128,12 +128,17 @@ const AssetCard = ({ asset }: { asset: Asset }) => {
         <Box>
           <Typography fontSize="sm">Tags:</Typography>
           <Box sx={{ mt: 1.5, display: "flex", gap: 1 }}>
-            <Chip variant="outlined" color="neutral" size="sm" sx={{ borderRadius: "sm" }}>
-              Tag Todo
-            </Chip>
-            <Chip variant="outlined" color="neutral" size="sm" sx={{ borderRadius: "sm" }}>
-              Tag Todo
-            </Chip>
+            {asset.tags?.length ? (
+              asset.tags.map((tag) => (
+                <Chip key={tag.id} variant="outlined" color="neutral" size="sm" sx={{ borderRadius: "sm" }}>
+                  {tag.label}
+                </Chip>
+              ))
+            ) : (
+              <Chip variant="outlined" color="neutral" size="sm" sx={{ borderRadius: "sm" }}>
+                -
+              </Chip>
+            )}
           </Box>
         </Box>
 
