@@ -8,7 +8,7 @@ export type AssetContextType = {
   hasNextPage?: boolean;
   fetchNextPage: InfiniteQueryObserverBaseResult["fetchNextPage"];
   isFetching?: boolean;
-  assetTypes: AssetType[];
+  allAssetTypes: AssetType[];
 };
 
 const AssetContext = createContext<AssetContextType | undefined>(undefined);
@@ -36,12 +36,12 @@ export const AssetContextProvider = ({ children }: { children: React.ReactNode }
 
   //--------------------------
   // Get Asset Types with asset counts --> use in Type Select + Statistics
-  const { data: assetTypesData } = useQuery({
+  const { data: allAssetTypesData } = useQuery({
     queryKey: ["assetTypes"],
     queryFn: getAssetTypes,
     refetchOnWindowFocus: false,
   });
-  const assetTypes = useMemo(() => assetTypesData?.data || [], [assetTypesData?.data]);
+  const allAssetTypes = useMemo(() => allAssetTypesData?.data || [], [allAssetTypesData?.data]);
 
   //--------------------------
 
@@ -52,7 +52,7 @@ export const AssetContextProvider = ({ children }: { children: React.ReactNode }
         hasNextPage,
         fetchNextPage,
         isFetching,
-        assetTypes,
+        allAssetTypes,
       }}
     >
       {children}

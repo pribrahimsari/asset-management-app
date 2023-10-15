@@ -1,4 +1,7 @@
-// todo: get those from DB in the format below:
+// This list is not in use anymore, we're fetching data from BE
+// todo: remove file
+
+// DONE: get those from DB in the format below:
 // {
 // id: 1,
 // name: "Audio",

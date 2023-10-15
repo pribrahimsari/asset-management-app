@@ -20,12 +20,13 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createAsset } from "src/api/apiService.ts";
 import { createAssetFormSchema } from "src/validations/formValidations.ts";
 import { useSnackbar } from "notistack";
-import { assetTypes } from "src/data/constants.ts";
 import { AxiosError } from "axios";
+import { useAssetContext } from "src/context/AssetContext.tsx";
 
 const CreateNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => void }) => {
   const queryClient = useQueryClient();
   const { enqueueSnackbar } = useSnackbar();
+  const { allAssetTypes } = useAssetContext();
 
   const createMutation = useMutation({
     mutationKey: ["createAsset"],
@@ -119,7 +120,6 @@ const CreateNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: bo
             />
           </FormControl>
 
-          {/* todo */}
           <FormControl>
             <FormLabel>Type *</FormLabel>
             <Select
@@ -134,7 +134,7 @@ const CreateNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: bo
               placeholder="Select an asset type"
               size="sm"
             >
-              {assetTypes.map((type) => (
+              {allAssetTypes.map((type) => (
                 <Option key={type.id} value={type.id.toString()}>
                   {type.name}
                 </Option>
