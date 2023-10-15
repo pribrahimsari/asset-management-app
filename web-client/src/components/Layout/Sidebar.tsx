@@ -9,9 +9,9 @@ import Sheet from "@mui/joy/Sheet";
 import ColorSchemeToggle from "./ColorSchemeToggle";
 import { closeSidebar } from "./layoutUtils";
 import { GiLinkedRings } from "react-icons/gi";
-import { Button, Card, Option, Select, Stack, Tooltip } from "@mui/joy";
-import { MdAddPhotoAlternate } from "react-icons/md";
+import { Card, Option, Select, Stack, Tooltip } from "@mui/joy";
 import { FaSortAlphaDown } from "react-icons/fa";
+import CreateNewAssetCard from "src/components/CreateNewAssetCard.tsx";
 
 export default function Sidebar() {
   return (
@@ -98,19 +98,9 @@ export default function Sidebar() {
           },
         }}
       >
-        <Card invertedColors variant="soft" color="success" size="sm" sx={{ boxShadow: "none" }}>
-          <Stack direction="row" justifyContent="space-between" alignItems="center">
-            <Typography level="title-sm">Add New Asset</Typography>
-            <MdAddPhotoAlternate />
-          </Stack>
-          <Typography level="body-xs">
-            An interface that allows users to <b>add new assets</b>.
-          </Typography>
-          <Button size="sm" variant="solid" startDecorator={<MdAddPhotoAlternate />}>
-            Add
-          </Button>
-        </Card>
+        <CreateNewAssetCard />
 
+        {/*  todo */}
         <Card variant="soft" color="warning" size="sm" sx={{ boxShadow: "none" }}>
           <Stack direction="row" justifyContent="space-between" alignItems="center">
             <Typography level="title-sm">Sort</Typography>

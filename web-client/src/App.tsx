@@ -41,6 +41,8 @@ const App = () => {
             flex: 1,
             width: "100%",
             paddingTop: "var(--Header-height)",
+            paddingLeft: "10px",
+            paddingRight: "10px",
           }}
         >
           <StickySubHeader />
