@@ -21,6 +21,7 @@ import { createAsset } from "src/api/apiService.ts";
 import { createAssetFormSchema } from "src/validations/formValidations.ts";
 import { useSnackbar } from "notistack";
 import { assetTypes } from "src/data/constants.ts";
+import { AxiosError } from "axios";
 
 const CreateNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => void }) => {
   const queryClient = useQueryClient();
@@ -29,6 +30,12 @@ const CreateNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: bo
   const createMutation = useMutation({
     mutationKey: ["createAsset"],
     mutationFn: createAsset,
+    onError: (error: AxiosError) => {
+      console.error({ error });
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      enqueueSnackbar(error?.response?.data?.message || error.message || "Error", { variant: "error" });
+    },
     onSuccess: () =>
       queryClient
         .invalidateQueries({
