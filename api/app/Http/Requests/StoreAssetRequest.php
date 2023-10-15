@@ -32,6 +32,8 @@ class StoreAssetRequest extends FormRequest
                 'required',
                 Rule::in(["Low", "Medium", "High"]),
             ],
+            "tags"=>"nullable|array",
+            "notes"=>"nullable|array",
         ];
     }
 }

@@ -30,8 +30,21 @@ class AssetController extends Controller
      */
     public function store(StoreAssetRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $notes = $validated["notes"];
+        $tags = $validated["tags"];
+
         $asset = Asset::create($request->validated());
+
+        // notes
+        if(count($notes)>0){
+            $asset->notes()->createMany($notes);
+        }
+        // tags
+        if(count($tags)>0){
+            $asset->tags()->createMany($tags);
+        }
+        //
         return AssetResource::make($asset);
     }
 
