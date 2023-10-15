@@ -47,7 +47,7 @@ const CreateNewAssetModal = ({ open, setOpen }: { open: boolean; setOpen: (v: bo
         .then(() => {
           setOpen(false);
           resetForm();
-          enqueueSnackbar("Success", { variant: "success" });
+          enqueueSnackbar("Successfully added", { variant: "success" });
         });
       queryClient.invalidateQueries(["assetTypes"]);
     },
