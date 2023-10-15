@@ -22,6 +22,7 @@ export type Asset = {
 export type AssetType = {
   id: number;
   name: string;
+  assets_count: number;
 };
 
 export type NavigationLinks = {
@@ -46,4 +47,8 @@ export type PaginationLink = {
   url: string | null;
   label: string;
   active: boolean;
+};
+
+export type GetAssetTypesQueryResult = {
+  data: AssetType[];
 };

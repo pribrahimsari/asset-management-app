@@ -1,13 +1,14 @@
 import React, { createContext, useContext, useMemo } from "react";
-import { InfiniteQueryObserverBaseResult, useInfiniteQuery } from "@tanstack/react-query";
-import { getAssets } from "src/api/apiService.ts";
-import { Asset, PaginatedInfiniteData } from "src/types/ApiTypes.ts";
+import { InfiniteQueryObserverBaseResult, useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { getAssets, getAssetTypes } from "src/api/apiService.ts";
+import { Asset, AssetType, PaginatedInfiniteData } from "src/types/ApiTypes.ts";
 
 export type AssetContextType = {
   assets: Asset[];
   hasNextPage?: boolean;
   fetchNextPage: InfiniteQueryObserverBaseResult["fetchNextPage"];
   isFetching?: boolean;
+  assetTypes: AssetType[];
 };
 
 const AssetContext = createContext<AssetContextType | undefined>(undefined);
@@ -33,6 +34,17 @@ export const AssetContextProvider = ({ children }: { children: React.ReactNode }
     );
   }, [data]);
 
+  //--------------------------
+  // Get Asset Types with asset counts --> use in Type Select + Statistics
+  const { data: assetTypesData } = useQuery({
+    queryKey: ["assetTypes"],
+    queryFn: getAssetTypes,
+    refetchOnWindowFocus: false,
+  });
+  const assetTypes = useMemo(() => assetTypesData?.data || [], [assetTypesData?.data]);
+
+  //--------------------------
+
   return (
     <AssetContext.Provider
       value={{
@@ -40,6 +52,7 @@ export const AssetContextProvider = ({ children }: { children: React.ReactNode }
         hasNextPage,
         fetchNextPage,
         isFetching,
+        assetTypes,
       }}
     >
       {children}
