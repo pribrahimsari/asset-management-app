@@ -8,6 +8,7 @@
 name: 🚀 Deploy Backend on push main branch and on api/** folder change
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
