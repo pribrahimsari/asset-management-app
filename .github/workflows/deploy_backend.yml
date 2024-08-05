@@ -26,15 +26,24 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name: Upload file
+        uses: tomasbkk/action-ftp-upload@v1.0
         with:
-          server: ${{ secrets.API_SFTP_HOST }}
-          username: ${{ secrets.API_SFTP_USERNAME }}
+          user: ${{ secrets.API_SFTP_USERNAME }}
           password: ${{ secrets.API_SFTP_PASSWORD }}
-          port: ${{ secrets.API_SFTP_PORT }}
-          local-dir: './api/'
-          server-dir: './test/'
+          host: ${{ secrets.API_SFTP_HOST }}
+          src: ./api/**
+          dest: ./test/**
+
+      # - name: 📂 Sync files
+        # uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        # with:
+          # server: ${{ secrets.API_SFTP_HOST }}
+          # username: ${{ secrets.API_SFTP_USERNAME }}
+          # password: ${{ secrets.API_SFTP_PASSWORD }}
+          # port: ${{ secrets.API_SFTP_PORT }}
+          # local-dir: './api/'
+          # server-dir: './test/'
 
       # - name: 📂 Transfer files via FTP
         # uses: GenieTim/ftp-action@v4.0.1
