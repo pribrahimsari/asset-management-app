@@ -26,7 +26,7 @@ jobs:
     - name: FTP-Deploy-Action
       uses: SamKirkland/FTP-Deploy-Action@4.3.3
       with:
-        server: my-ftp.ibrahimsari.com.tr
+        server: 198.177.120.62
         username: github-ftp-deployer@asset-management-api.ibrahimsari.com.tr
         password: ${{ secrets.API_SFTP_PASSWORD }}
 
