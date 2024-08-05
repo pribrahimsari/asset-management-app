@@ -26,6 +26,15 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: 📂 Transfer files via FTP
+        uses: genietim/ftp-action@releases/v4
+        with:
+          host: ${{ secrets.API_SFTP_HOST }}
+          user: ${{ secrets.API_SFTP_USERNAME }}
+          password: ${{ secrets.API_SFTP_PASSWORD }}
+          localDir: './api'
+          remoteDir: ./test'
+
       - name: 📂 Transfer files via SFTP
         uses: pressidium/lftp-mirror-action@v1
         with:
