@@ -37,9 +37,10 @@ jobs:
           # lftp settings
           onlyNewer: true
           settings: 'sftp:auto-confirm=yes'
+          forceSSL: false
           # Mirror command options
           localDir: './api'
-          remoteDir: './api.asset-management'
+          remoteDir: './test'
           reverse: true
           ignoreFile: '.lftp_ignore'
           options: '--verbose'
