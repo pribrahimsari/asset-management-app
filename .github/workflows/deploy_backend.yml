@@ -1,35 +1,35 @@
-# https://stackoverflow.com/questions/70996923/is-that-possible-to-deploy-laravel-web-application-to-shared-hosting-using-githu
-
-# DO NOT FORGET:
-#  on DreamHost:
-#   Web directory MUST END WITH /public for LARAVEL
-#    EXAMPLE: site-name/public
-
-name: 🚀 Deploy Backend on push main branch and on api/** folder change
-
+name: Deploy Laravel Project on push
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
-    paths:
-      - 'api/**'
-
+      
 jobs:
-  deploy:
+  web-deploy:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Upload from public_html via FTP
-        uses: airvzxf/ftp-deployment-action@latest
+      - name: Get the latest code
+        uses: actions/checkout@v2.3.2
+      #- uses: actions/setup-node@master
+      #- name: Copy .env
+      #  run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+      #- name: Install Dependencies
+      #  run: composer update --ignore-platform-reqs
+      #- name: Generate key
+      #  run: php artisan key:generate
+      #- name: Generate storage link
+      #  run: php artisan storage:link
+      #- name: Directory Permissions
+      #  run: chmod -R 777 storage bootstrap/cache
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
-          server: 198.177.120.62
-          user: github-ftp-deployer@asset-management-api.ibrahimsari.com.tr
+          server: ${{ secrets.API_SFTP_HOST }}
+          username: ${{ secrets.API_SFTP_USERNAME }}
           password: ${{ secrets.API_SFTP_PASSWORD }}
-          local_dir: "./api"
-          remote_dir: "/test"
-          ftp_ssl_allow: "no"
+          local-dir: ./api/
+          server-dir: /
 
 
 #jobs:
