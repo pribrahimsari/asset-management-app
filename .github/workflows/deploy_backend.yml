@@ -26,14 +26,22 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Upload file
-        uses: tomasbkk/action-ftp-upload@v1.0
+
+      - name: Push files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          user: ${{ secrets.API_SFTP_USERNAME }}
+          server: my-ftp.ibrahimsari.com.tr
+          username: github-ftp-deployer@asset-management-api.ibrahimsari.com.tr
           password: ${{ secrets.API_SFTP_PASSWORD }}
-          host: ${{ secrets.API_SFTP_HOST }}
-          src: ./api/**
-          dest: ./test/**
+
+     # - name: Upload file
+      #  uses: tomasbkk/action-ftp-upload@v1.0
+       # with:
+        #  user: ${{ secrets.API_SFTP_USERNAME }}
+         # password: ${{ secrets.API_SFTP_PASSWORD }}
+         # host: ${{ secrets.API_SFTP_HOST }}
+          #src: ./api/**
+          #dest: ./test/**
 
       # - name: 📂 Sync files
         # uses: SamKirkland/FTP-Deploy-Action@v4.3.5
