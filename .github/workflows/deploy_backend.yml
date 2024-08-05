@@ -27,7 +27,7 @@ jobs:
           fetch-depth: 0
 
       - name: 📂 Transfer files via FTP
-        uses: genietim/ftp-action@releases/v4
+        uses: GenieTim/ftp-action@v4.0.1
         with:
           host: ${{ secrets.API_SFTP_HOST }}
           user: ${{ secrets.API_SFTP_USERNAME }}
