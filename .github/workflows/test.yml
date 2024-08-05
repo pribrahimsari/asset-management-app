@@ -12,5 +12,6 @@ jobs:
           host: ${{ secrets.API_SFTP_HOST }}
           username: ${{ secrets.API_SFTP_USERNAME }}
           password: ${{ secrets.API_SFTP_PASSWORD }}
+          key: ${{ secrets.API_CPANEL_SSH_PRIVATE_KEY }}
           port: 21
           script: whoami
