@@ -20,16 +20,14 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Upload ftp
-      uses: GenieTim/ftp-action@v4.0.1
-      with:
-        host: '198.177.120.62'
-        user: 'github-ftp-deployer@asset-management-api.ibrahimsari.com.tr'
-        password: ${{ secrets.FTP_PASSWORD }}
-        localDir: "api"
-        remoteDir: "test"
-
+      - uses: actions/checkout@v4
+      - name: Upload from public_html via FTP
+        uses: airvzxf/ftp-deployment-action@latest
+        with:
+          server: "198.177.120.62"
+          user: "github-ftp-deployer@asset-management-api.ibrahimsari.com.tr"
+          password: ${{ secrets.API_SFTP_PASSWORD }}
+          local_dir: "./api"
 
 
 #jobs:
