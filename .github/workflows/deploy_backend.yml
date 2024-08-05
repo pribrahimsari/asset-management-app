@@ -26,6 +26,16 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.API_SFTP_HOST }}
+          username: ${{ secrets.API_SFTP_USERNAME }}
+          password: ${{ secrets.API_SFTP_PASSWORD }}
+          port: ${{ secrets.API_SFTP_PORT }}
+          local-dir: './api'
+          remote-dir: ./test'
+
       - name: 📂 Transfer files via FTP
         uses: GenieTim/ftp-action@v4.0.1
         with:
