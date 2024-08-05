@@ -13,5 +13,5 @@ jobs:
           username: ${{ secrets.API_SSH_USERNAME }}
           password: ${{ secrets.API_SSH_PASSWORD }}
           key: ${{ secrets.API_SSH_PRIVATE_KEY }}
-#          port: 22
+          port: 21
           script: whoami
