@@ -34,35 +34,35 @@ jobs:
           password: ${{ secrets.API_SFTP_PASSWORD }}
           port: ${{ secrets.API_SFTP_PORT }}
           local-dir: './api/'
-          server-dir: ./test/'
+          server-dir: './test/'
 
-      - name: 📂 Transfer files via FTP
-        uses: GenieTim/ftp-action@v4.0.1
-        with:
-          host: ${{ secrets.API_SFTP_HOST }}
-          user: ${{ secrets.API_SFTP_USERNAME }}
-          password: ${{ secrets.API_SFTP_PASSWORD }}
-          localDir: './api'
-          remoteDir: ./test'
+      # - name: 📂 Transfer files via FTP
+        # uses: GenieTim/ftp-action@v4.0.1
+        # with:
+          # host: ${{ secrets.API_SFTP_HOST }}
+          # user: ${{ secrets.API_SFTP_USERNAME }}
+          # password: ${{ secrets.API_SFTP_PASSWORD }}
+          # localDir: './api'
+          # remoteDir: ./test'
 
-      - name: 📂 Transfer files via SFTP
-        uses: pressidium/lftp-mirror-action@v1
-        with:
-          # SFTP credentials
-          host: ${{ secrets.API_SFTP_HOST }}
-          port: ${{ secrets.API_SFTP_PORT }}
-          user: ${{ secrets.API_SFTP_USERNAME }}
-          pass: ${{ secrets.API_SFTP_PASSWORD }}
-          # lftp settings
-          onlyNewer: true
-          settings: 'sftp:auto-confirm=yes'
-          forceSSL: false
-          # Mirror command options
-          localDir: './api'
-          remoteDir: './test'
-          reverse: true
-          ignoreFile: '.lftp_ignore'
-          options: '--verbose'
+      # - name: 📂 Transfer files via SFTP
+        # uses: pressidium/lftp-mirror-action@v1
+        # with:
+          # # SFTP credentials
+          # host: ${{ secrets.API_SFTP_HOST }}
+          # port: ${{ secrets.API_SFTP_PORT }}
+          # user: ${{ secrets.API_SFTP_USERNAME }}
+          # pass: ${{ secrets.API_SFTP_PASSWORD }}
+          # # lftp settings
+          # onlyNewer: true
+          # settings: 'sftp:auto-confirm=yes'
+          # forceSSL: false
+          # # Mirror command options
+          # localDir: './api'
+          # remoteDir: './test'
+          # reverse: true
+          # ignoreFile: '.lftp_ignore'
+          # options: '--verbose'
 
       - name: 💻 Post Deploy | Composer Install + PHP artisan commands
         uses: appleboy/ssh-action@v1.0.0
