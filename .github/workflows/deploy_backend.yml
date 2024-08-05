@@ -1,3 +1,9 @@
+# https://stackoverflow.com/questions/70996923/is-that-possible-to-deploy-laravel-web-application-to-shared-hosting-using-githu
+
+# DO NOT FORGET:
+#  on DreamHost:
+#   Web directory MUST END WITH /public for LARAVEL
+#    EXAMPLE: site-name/public
 name: 🚀 Deploy Backend on push main branch and on api/** folder change
 
 on:
