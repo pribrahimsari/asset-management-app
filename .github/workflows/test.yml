@@ -11,7 +11,7 @@ jobs:
         with:
           host: ${{ secrets.API_SSH_HOST }}
           username: ${{ secrets.API_SSH_USERNAME }}
-          password: ${{ secrets.API_SSH_PASSWORD }}
+#          password: ${{ secrets.API_SSH_PASSWORD }}
           key: ${{ secrets.API_SSH_PRIVATE_KEY }}
           passphrase: ${{ secrets.API_SSH_PASSPHRASE }}
           port: 21
