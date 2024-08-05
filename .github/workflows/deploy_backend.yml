@@ -24,8 +24,8 @@ jobs:
       - name: Upload from public_html via FTP
         uses: airvzxf/ftp-deployment-action@latest
         with:
-          server: "198.177.120.62"
-          user: "github-ftp-deployer@asset-management-api.ibrahimsari.com.tr"
+          server: 198.177.120.62
+          user: github-ftp-deployer@asset-management-api.ibrahimsari.com.tr
           password: ${{ secrets.API_SFTP_PASSWORD }}
           local_dir: "./api"
           remote_dir: "/test"
