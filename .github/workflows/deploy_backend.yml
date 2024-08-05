@@ -16,19 +16,19 @@ on:
       - 'api/**'
 
 jobs:
-  FTP-Deploy-Action:
-    name: FTP-Deploy-Action
+  deploy:
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2.1.0
+    - uses: actions/checkout@v2
+    - name: Upload ftp
+      uses: genietim/ftp-action@releases/v4
       with:
-        fetch-depth: 2
-    - name: FTP-Deploy-Action
-      uses: SamKirkland/FTP-Deploy-Action@4.3.3
-      with:
-        server: 198.177.120.62
-        username: github-ftp-deployer@asset-management-api.ibrahimsari.com.tr
-        password: ${{ secrets.API_SFTP_PASSWORD }}
+        host: '198.177.120.62'
+        user: 'github-ftp-deployer@asset-management-api.ibrahimsari.com.tr'
+        password: ${{ secrets.FTP_PASSWORD }}
+        localDir: "api"
+        remoteDir: "test"
 
 
 
