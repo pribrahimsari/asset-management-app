@@ -34,7 +34,7 @@ jobs:
           password: ${{ secrets.API_SFTP_PASSWORD }}
           port: ${{ secrets.API_SFTP_PORT }}
           local-dir: './api/'
-          remote-dir: ./test/'
+          server-dir: ./test/'
 
       - name: 📂 Transfer files via FTP
         uses: GenieTim/ftp-action@v4.0.1
