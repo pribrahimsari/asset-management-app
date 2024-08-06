@@ -32,7 +32,7 @@ jobs:
           localDir: "api"
           remoteDir: "/"
 
-      - name: executing remote ssh commands using password
+      - name: 🧑‍💻️Executing Remote SSH Commands
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.API_SSH_HOST }}
