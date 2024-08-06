@@ -10,7 +10,7 @@ jobs:
         uses: appleboy/ssh-action@v1.0.3
         with:
 #          host: ${{ secrets.API_SSH_HOST }}
-          host: 198.177.120.62
+          host: '198.177.120.62'
           username: ${{ secrets.API_SSH_USERNAME }}
           key: ${{ secrets.API_SSH_PRIVATE_KEY }}
           passphrase: ${{ secrets.API_SSH_PASSPHRASE }}
