@@ -47,18 +47,20 @@ jobs:
             which composer
             composer --version
             
-            echo "--------"
+            echo "----------------------------------------"
 
             echo "which php:"
             which php
             php -v
 
-            echo "--------"
+            echo "----------------------------------------"
             
             cd asset-management-api.ibrahimsari.com.tr 
             
             echo "pwd:"
             pwd
+            
+            echo "----------------------------------------"
             
             #### Enter maintenance mode or return true
             #### if already is in maintenance mode
