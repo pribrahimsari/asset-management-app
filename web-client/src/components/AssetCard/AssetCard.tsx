@@ -77,7 +77,7 @@ const AssetCard = ({ asset }: { asset: Asset }) => {
       {/* Image about Asset */}
       <Box>
         <AspectRatio ratio="21/9">
-          <img alt="" src={`https://source.unsplash.com/random/?${slugify(asset.type.name)},${asset.id}`} />
+          <img alt="" src={`https://picsum.photos/200/300/?noCache=${slugify(asset.type.name)},${asset.id}`} />
         </AspectRatio>
       </Box>
 
