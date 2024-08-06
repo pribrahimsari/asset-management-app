@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*.isari.me', 'http://localhost:5173'],
+    'allowed_origins' => ['*.isari.me','*.ibrahimsari.com.tr', 'http://localhost:5173'],
 
     'allowed_origins_patterns' => [],
 
