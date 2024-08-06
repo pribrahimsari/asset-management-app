@@ -5,6 +5,7 @@ env:
   VERCEL_ORG_ID: ${{ secrets.WEB_CLIENT_VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.WEB_CLIENT_VERCEL_PROJECT_ID }}
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
