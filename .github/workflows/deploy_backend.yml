@@ -32,58 +32,57 @@ jobs:
           localDir: "api"
           remoteDir: "/"
 
-#      - name: 💻 Post Deploy | Composer Install + PHP artisan commands
-#        uses: appleboy/ssh-action@v1.0.0
-#        with:
-#          host: ${{ secrets.API_SFTP_HOST }}
-#          username: ${{ secrets.API_SFTP_USERNAME }}
-#          password: ${{ secrets.API_SFTP_PASSWORD }}
-#          port: ${{ secrets.API_SFTP_PORT }}
-#          script: |
-#            echo "Deployment started ..."
-#
-#            export PATH=/usr/local/php82/bin:$PATH
-#            export PATH=/home/mintus_asset_adm/.php/composer:$PATH
-#            echo "PHP and Composer paths exported"
-#
-#            echo "which composer:"
-#            which composer
-#            composer --version
-#
-#            echo "--------"
-#
-#            echo "which php:"
-#            which php
-#            php -v
-#
-#            echo "--------"
-#
-#            set -e
-#            cd api.asset-management
-#
-#            #### Enter maintenance mode or return true
-#            #### if already is in maintenance mode
-#            (php artisan down) || true
-#
-#            #### Install composer dependencies
-#            composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
-#
-#            #### Clear the old cache
-#            php artisan clear-compiled
-#
-#            #### Recreate cache
-#            php artisan optimize
-#
-#            #### Run database migrations
-#            php artisan migrate --force --seed
-#
-#            ###php artisan migrate --force --seed
-#            php artisan migrate:fresh --seed
-#
-#            #### php artisan storage:link
-#
-#            php artisan config:clear
-#            php artisan config:cache
-#
-#            php artisan view:clear
-#            php artisan route:cache
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.API_SSH_HOST }}
+          username: ${{ secrets.API_SSH_USERNAME }}
+          key: ${{ secrets.API_SSH_PRIVATE_KEY }}
+          passphrase: ${{ secrets.API_SSH_PASSPHRASE }}
+          port: ${{ secrets.API_SSH_PORT }} # 21098 for NameCheap cName
+          script: |
+            echo "Deployment started ..."
+
+            echo "which composer:"
+            which composer
+            composer --version
+            
+            echo "--------"
+
+            echo "which php:"
+            which php
+            php -v
+
+            echo "--------"
+            
+            cd asset-management-api.ibrahimsari.com.tr 
+            
+            echo "pwd:"
+            cd pwd
+            
+            #### Enter maintenance mode or return true
+            #### if already is in maintenance mode
+            (php artisan down) || true
+
+            #### Install composer dependencies
+            composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+
+            #### Clear the old cache
+            php artisan clear-compiled
+
+            #### Recreate cache
+            php artisan optimize
+
+            #### Run database migrations
+            php artisan migrate --force --seed
+
+            ###php artisan migrate --force --seed
+            php artisan migrate:fresh --seed
+
+            #### php artisan storage:link
+
+            php artisan config:clear
+            php artisan config:cache
+
+            php artisan view:clear
+            php artisan route:cache
